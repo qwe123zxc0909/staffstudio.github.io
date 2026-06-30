@@ -29,7 +29,6 @@
             transition: background-image 1.5s ease-in-out;
         }
 
-        /* Затемнение для читаемости текста (без блюра) */
         body::before {
             content: '';
             position: fixed;
@@ -148,24 +147,25 @@
             filter: drop-shadow(0 0 8px rgba(30, 100, 255, 0.2));
         }
 
-        .link-qwe {
+        /* ПЕРВЫЙ БЛОК — ЗЕЛЁНО-ФИОЛЕТОВЫЙ ГРАДИЕНТ */
+        .link-gradient {
             background: linear-gradient(135deg, #0f2a1f, #1f1235);
             border-color: #3a7a4a;
             box-shadow: 0 0 20px rgba(60, 200, 80, 0.08);
         }
 
-        .link-qwe:hover {
+        .link-gradient:hover {
             border-color: #6fcf7a;
             box-shadow: 0 0 35px rgba(60, 200, 80, 0.2), 0 0 60px rgba(150, 80, 255, 0.1);
             background: linear-gradient(135deg, #143a28, #2a1a45);
         }
 
-        .link-qwe i {
+        .link-gradient i {
             color: #6fcf7a;
             filter: drop-shadow(0 0 12px rgba(60, 200, 80, 0.4));
         }
 
-        .link-qwe span {
+        .link-gradient span {
             background: linear-gradient(135deg, #6fcf7a, #b07cff);
             -webkit-background-clip: text;
             background-clip: text;
@@ -248,38 +248,41 @@
 
         <div class="links">
 
-            <a href="https://t.me/KVOLT_EVKLID" target="_blank" class="link-item link-qwe">
-                <i class="fas fa-crown"></i>
-                <span>QWE</span>
-                <i class="fas fa-arrow-right" style="font-size:0.8rem; color:#5a7a9e; filter:none;"></i>
+            <!-- ПЕРВЫЙ БЛОК — ВСЕ ССЫЛКИ В ГРАДИЕНТЕ -->
+            <a href="https://t.me/KVOLT_EVKLID" target="_blank" class="link-item link-gradient">
+                <i class="fab fa-telegram"></i>
+                <span>TGK</span>
             </a>
 
-            <a href="https://t.me/KVOLT_EVKLID" target="_blank" class="link-item">
-                <i class="fab fa-telegram"></i> TGK
+            <a href="https://www.twitch.tv/qwe_gosha" target="_blank" class="link-item link-gradient">
+                <i class="fab fa-twitch"></i>
+                <span>Twitch</span>
             </a>
 
-            <a href="https://www.twitch.tv/qwe_gosha" target="_blank" class="link-item">
-                <i class="fab fa-twitch"></i> Twitch
+            <a href="https://www.tiktok.com/@qwe123zxc0909?_r=1&_t=ZS-92JrBUFWpiZ" target="_blank" class="link-item link-gradient">
+                <i class="fab fa-tiktok"></i>
+                <span>TikTok</span>
             </a>
 
-            <a href="https://www.tiktok.com/@qwe123zxc0909?_r=1&_t=ZS-92JrBUFWpiZ" target="_blank" class="link-item">
-                <i class="fab fa-tiktok"></i> TikTok
+            <a href="https://steamcommunity.com/id/qwe123zxc0909/" target="_blank" class="link-item link-gradient">
+                <i class="fab fa-steam"></i>
+                <span>Steam</span>
             </a>
 
-            <a href="https://steamcommunity.com/id/qwe123zxc0909/" target="_blank" class="link-item">
-                <i class="fab fa-steam"></i> Steam
+            <a href="https://ru.namemc.com/profile/KV0LT.1" target="_blank" class="link-item link-gradient">
+                <i class="fas fa-user"></i>
+                <span>NameMC</span>
             </a>
 
-            <a href="https://ru.namemc.com/profile/KV0LT.1" target="_blank" class="link-item">
-                <i class="fas fa-user"></i> NameMC
+            <a href="http://www.youtube.com/@qwegosha" target="_blank" class="link-item link-gradient">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
             </a>
 
-            <a href="http://www.youtube.com/@qwegosha" target="_blank" class="link-item">
-                <i class="fab fa-youtube"></i> YouTube
-            </a>
-
+            <!-- РАЗДЕЛИТЕЛЬ -->
             <div class="group-divider">✦ STAFF STUDIO ✦</div>
 
+            <!-- ВТОРОЙ БЛОК — СИНЕ-ЧЁРНЫЙ -->
             <a href="https://t.me/STAFF_STUDIO_official" target="_blank" class="link-item">
                 <i class="fas fa-users"></i> STAFF STUDIO
             </a>
@@ -317,7 +320,6 @@
     </div>
 
     <script>
-        // Список файлов из папки images/
         const images = [
             'images/0000.png',
             'images/0002.png',
@@ -335,9 +337,7 @@
             currentIndex = (currentIndex + 1) % images.length;
         }
 
-        // Устанавливаем первый фон сразу
         changeBackground();
-        // Меняем каждые 10 секунд
         setInterval(changeBackground, 10000);
     </script>
 </body>
