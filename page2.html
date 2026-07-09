@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -22,14 +21,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
             background: #0b0d10;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             transition: background-image 1.5s ease-in-out;
+            padding: 1.5rem;
         }
 
+        /* Затемнение фона */
         body::before {
             content: '';
             position: fixed;
@@ -37,22 +37,17 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(11, 13, 16, 0.7);
+            background: rgba(11, 13, 16, 0.75);
             z-index: 0;
         }
 
-        .container {
+        /* ЦЕНТРАЛЬНЫЙ БЛОК — без коробочки, только текст */
+        .archive-content {
             position: relative;
             z-index: 1;
-            max-width: 500px;
-            width: 100%;
-            background: rgba(17, 20, 26, 0.9);
-            border-radius: 2.5rem;
-            padding: 3rem 2.5rem;
-            box-shadow: 0 20px 40px rgba(0, 20, 40, 0.8), 0 0 0 1px rgba(30, 80, 180, 0.15);
-            animation: fadeIn 1s ease-out;
             text-align: center;
-            border: 1px solid rgba(30, 80, 180, 0.2);
+            animation: fadeIn 1.2s ease-out;
+            padding: 2rem;
         }
 
         @keyframes fadeIn {
@@ -60,149 +55,171 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
-        .archive-icon {
-            font-size: 4rem;
-            color: #3a7bd5;
-            margin-bottom: 1.5rem;
-            filter: drop-shadow(0 0 20px rgba(30, 80, 180, 0.3));
-        }
-
-        /* ШКАЛА 98% */
-        .progress-container {
-            width: 100%;
-            background: rgba(20, 28, 42, 0.8);
-            border-radius: 60px;
-            padding: 6px;
-            border: 1px solid #243b5a;
-            margin: 1.5rem 0;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .progress-bar {
-            height: 32px;
-            background: linear-gradient(90deg, #0f2a1f, #1f6fe0, #b07cff);
-            border-radius: 60px;
-            width: 98%;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 16px;
-            color: #fff;
-            font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            box-shadow: 0 0 30px rgba(60, 200, 80, 0.15);
-            transition: width 2s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Анимация свечения на шкале */
-        .progress-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
         .progress-label {
-            font-size: 2.5rem;
+            font-size: 8rem;
             font-weight: 800;
-            color: #d0e2ff;
-            margin: 0.5rem 0;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #ff3b3b, #cc0000);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 60px rgba(255, 0, 0, 0.2);
+            line-height: 1;
+            margin-bottom: 0.5rem;
         }
 
         .archive-status {
-            font-size: 1.2rem;
-            color: #5a7a9e;
-            letter-spacing: 4px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ff2222;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            border-top: 1px solid #1a2840;
-            padding-top: 1.5rem;
-            margin-top: 1rem;
+            text-shadow: 0 0 40px rgba(255, 0, 0, 0.15);
+            border-top: 2px solid rgba(255, 0, 0, 0.15);
+            padding-top: 1.2rem;
+            display: inline-block;
         }
 
         .archive-status i {
-            color: #3a7bd5;
-            margin-right: 10px;
+            margin-right: 14px;
+            color: #ff3333;
         }
 
-        /* Кнопка назад */
-        .back-btn {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 0.7rem 2rem;
-            background: rgba(20, 28, 42, 0.7);
-            border-radius: 60px;
-            border: 1px solid #243b5a;
-            color: #5a7a9e;
+        /* МАЛЕНЬКАЯ СТРЕЛКА НАЗАД (не скрытая) */
+        .back-link {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 2;
+            color: #3a5a7a;
+            font-size: 0.8rem;
             text-decoration: none;
-            font-weight: 500;
-            font-size: 0.85rem;
             transition: 0.3s;
+            letter-spacing: 1px;
+            font-weight: 400;
+            background: rgba(11, 13, 16, 0.5);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(30, 80, 180, 0.1);
+            backdrop-filter: blur(4px);
         }
 
-        .back-btn:hover {
-            border-color: #4f8eff;
+        .back-link:hover {
             color: #6a9eff;
-            box-shadow: 0 0 20px rgba(30, 80, 180, 0.2);
-            transform: translateY(-2px);
+            border-color: #4f8eff;
         }
 
-        .back-btn i {
-            margin-right: 8px;
+        .back-link i {
+            margin-right: 6px;
         }
 
-        @media (max-width: 500px) {
-            .container {
-                padding: 2rem 1.5rem;
-            }
+        /* ============================================================ */
+        /* СКРЫТАЯ КНОПКА — совсем невидимая, но кликабельная */
+        /* ============================================================ */
+        .secret-link {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 2;
+            display: block;
+            width: 60px;
+            height: 60px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            /* Абсолютно невидима */
+            opacity: 0;
+            pointer-events: auto; /* чтобы работал клик */
+            transition: none;
+        }
+
+        /* Подсказка для "легко обнаружить" — появляется только при наведении на область */
+        .secret-hint {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 1px dashed rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+            transition: 0.4s;
+        }
+
+        /* Анимация подсказки — едва заметное мерцание */
+        .secret-hint::after {
+            content: '⬡';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 255, 255, 0.03);
+            font-size: 1.2rem;
+            animation: pulseHint 4s infinite;
+        }
+
+        @keyframes pulseHint {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* При наведении на область — подсказка становится чуть виднее */
+        .secret-link:hover + .secret-hint {
+            border-color: rgba(100, 150, 255, 0.15);
+        }
+
+        .secret-link:hover + .secret-hint::after {
+            color: rgba(100, 150, 255, 0.15);
+        }
+
+        /* Адаптив */
+        @media (max-width: 600px) {
             .progress-label {
-                font-size: 2rem;
+                font-size: 5rem;
             }
-            .archive-icon {
-                font-size: 3rem;
+            .archive-status {
+                font-size: 1.8rem;
+                letter-spacing: 4px;
             }
-            .progress-bar {
-                height: 26px;
-                font-size: 0.75rem;
+            .secret-link {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .secret-hint {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="archive-icon">
-            <i class="fas fa-archive"></i>
-        </div>
-
-        <div class="progress-container">
-            <div class="progress-bar">
-                98%
-            </div>
-        </div>
-
+    <div class="archive-content">
         <div class="progress-label">98%</div>
-
         <div class="archive-status">
             <i class="fas fa-lock"></i> заархивировано
         </div>
-
-        <a href="index.html" class="back-btn">
-            <i class="fas fa-arrow-left"></i> вернуться
-        </a>
     </div>
+
+    <!-- Кнопка "назад" — видимая, в левом нижнем углу -->
+    <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> назад
+    </a>
+
+    <!-- ============================================================ -->
+    <!-- СКРЫТАЯ КНОПКА (невидимая) — ведёт на Gearssite -->
+    <!-- ============================================================ -->
+    <a href="https://qwe123zxc0909.github.io/Gearssite.github.io/" 
+       class="secret-link" 
+       target="_blank" 
+       title=" ">
+    </a>
+    <!-- Подсказка-призрак (чтобы было легко обнаружить) -->
+    <div class="secret-hint"></div>
 
     <script>
         // Тот же фон, что и на главной
