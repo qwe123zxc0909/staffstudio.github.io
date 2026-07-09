@@ -29,7 +29,6 @@
             padding: 1.5rem;
         }
 
-        /* Затемнение фона */
         body::before {
             content: '';
             position: fixed;
@@ -41,13 +40,14 @@
             z-index: 0;
         }
 
-        /* ЦЕНТРАЛЬНЫЙ БЛОК — без коробочки, только текст */
         .archive-content {
             position: relative;
             z-index: 1;
             text-align: center;
             animation: fadeIn 1.2s ease-out;
             padding: 2rem;
+            max-width: 600px;
+            width: 100%;
         }
 
         @keyframes fadeIn {
@@ -68,6 +68,33 @@
             margin-bottom: 0.5rem;
         }
 
+        /* ШКАЛА ИЗ СИМВОЛОВ */
+        .progress-bar-ascii {
+            font-family: 'Courier New', monospace;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #ff3333;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.15);
+            padding: 0.3rem 0;
+            margin: 0.5rem auto 1rem;
+            background: rgba(255, 0, 0, 0.03);
+            border-radius: 8px;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            border: 1px solid rgba(255, 0, 0, 0.05);
+            padding: 0.2rem 0.8rem;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+        /* Затемнённые символы (оставшиеся 2%) */
+        .progress-bar-ascii .dim {
+            color: rgba(255, 50, 50, 0.15);
+            text-shadow: none;
+        }
+
         .archive-status {
             font-size: 2.5rem;
             font-weight: 700;
@@ -85,7 +112,7 @@
             color: #ff3333;
         }
 
-        /* МАЛЕНЬКАЯ СТРЕЛКА НАЗАД (не скрытая) */
+        /* Кнопка назад */
         .back-link {
             position: fixed;
             bottom: 30px;
@@ -114,7 +141,7 @@
         }
 
         /* ============================================================ */
-        /* СКРЫТАЯ КНОПКА — совсем невидимая, но кликабельная */
+        /* СКРЫТАЯ КНОПКА */
         /* ============================================================ */
         .secret-link {
             position: fixed;
@@ -127,13 +154,10 @@
             background: transparent;
             border: none;
             cursor: pointer;
-            /* Абсолютно невидима */
             opacity: 0;
-            pointer-events: auto; /* чтобы работал клик */
-            transition: none;
+            pointer-events: auto;
         }
 
-        /* Подсказка для "легко обнаружить" — появляется только при наведении на область */
         .secret-hint {
             position: fixed;
             bottom: 30px;
@@ -147,7 +171,6 @@
             transition: 0.4s;
         }
 
-        /* Анимация подсказки — едва заметное мерцание */
         .secret-hint::after {
             content: '⬡';
             position: absolute;
@@ -164,7 +187,6 @@
             50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
         }
 
-        /* При наведении на область — подсказка становится чуть виднее */
         .secret-link:hover + .secret-hint {
             border-color: rgba(100, 150, 255, 0.15);
         }
@@ -173,7 +195,6 @@
             color: rgba(100, 150, 255, 0.15);
         }
 
-        /* Адаптив */
         @media (max-width: 600px) {
             .progress-label {
                 font-size: 5rem;
@@ -181,6 +202,11 @@
             .archive-status {
                 font-size: 1.8rem;
                 letter-spacing: 4px;
+            }
+            .progress-bar-ascii {
+                font-size: 1.4rem;
+                letter-spacing: 1px;
+                padding: 0.1rem 0.6rem;
             }
             .secret-link {
                 width: 50px;
@@ -199,30 +225,35 @@
 </head>
 <body>
     <div class="archive-content">
+
         <div class="progress-label">98%</div>
+
+        <!-- ШКАЛА ИЗ СИМВОЛОВ ||||||||| (98% заполнено) -->
+        <div class="progress-bar-ascii">
+            <span>||||||||||||||||</span>
+            <span class="dim">||</span>
+        </div>
+
         <div class="archive-status">
             <i class="fas fa-lock"></i> заархивировано
         </div>
+
     </div>
 
-    <!-- Кнопка "назад" — видимая, в левом нижнем углу -->
+    <!-- Кнопка "назад" -->
     <a href="index.html" class="back-link">
         <i class="fas fa-arrow-left"></i> назад
     </a>
 
-    <!-- ============================================================ -->
-    <!-- СКРЫТАЯ КНОПКА (невидимая) — ведёт на Gearssite -->
-    <!-- ============================================================ -->
-    <a href="https://qwe123zxc0909.github.io/Gearssite.github.io/" 
-       class="secret-link" 
-       target="_blank" 
+    <!-- СКРЫТАЯ КНОПКА -->
+    <a href="https://qwe123zxc0909.github.io/Gearssite.github.io/"
+       class="secret-link"
+       target="_blank"
        title=" ">
     </a>
-    <!-- Подсказка-призрак (чтобы было легко обнаружить) -->
     <div class="secret-hint"></div>
 
     <script>
-        // Тот же фон, что и на главной
         const images = [
             'images/0000.png',
             'images/0002.png',
