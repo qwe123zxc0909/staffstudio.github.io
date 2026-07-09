@@ -26,7 +26,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            transition: background-image 1.5s ease-in-out, opacity 1.5s ease;
+            transition: background-image 1.5s ease-in-out;
         }
 
         body::before {
@@ -52,45 +52,100 @@
             animation: fadeUp 0.8s ease-out;
             text-align: center;
             border: 1px solid rgba(30, 80, 180, 0.2);
-            transition: transform 0.8s ease, opacity 0.8s ease;
-        }
-
-        /* Анимация распада кода */
-        .container.fade-out {
-            animation: codeCrash 1.2s ease forwards;
-        }
-
-        @keyframes codeCrash {
-            0% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-                filter: blur(0px);
-            }
-            20% {
-                transform: scale(0.95) rotate(-2deg);
-                opacity: 0.9;
-                filter: blur(2px);
-            }
-            50% {
-                transform: scale(0.7) rotate(5deg) skewX(5deg);
-                opacity: 0.6;
-                filter: blur(8px);
-            }
-            70% {
-                transform: scale(0.4) rotate(-8deg) skewX(-10deg);
-                opacity: 0.3;
-                filter: blur(15px);
-            }
-            100% {
-                transform: scale(0) rotate(15deg) skewX(15deg);
-                opacity: 0;
-                filter: blur(25px);
-            }
+            transition: opacity 0.3s ease;
         }
 
         @keyframes fadeUp {
             0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================================ */
+        /* АНИМАЦИЯ ИСЧЕЗНОВЕНИЯ — ПОЛОСАМИ (снизу → сверху) */
+        /* ============================================================ */
+        .container.fade-out-stripes {
+            animation: disappearStripes 1.2s ease forwards;
+        }
+
+        @keyframes disappearStripes {
+            0% {
+                opacity: 1;
+                clip-path: inset(0% 0% 0% 0%);
+                transform: scale(1);
+            }
+            15% {
+                opacity: 1;
+                clip-path: inset(0% 0% 90% 0%);
+            }
+            30% {
+                opacity: 1;
+                clip-path: inset(0% 0% 80% 0%);
+            }
+            45% {
+                opacity: 0.9;
+                clip-path: inset(0% 0% 70% 0%);
+            }
+            60% {
+                opacity: 0.7;
+                clip-path: inset(15% 0% 60% 0%);
+            }
+            75% {
+                opacity: 0.5;
+                clip-path: inset(30% 0% 40% 0%);
+            }
+            90% {
+                opacity: 0.2;
+                clip-path: inset(60% 0% 20% 0%);
+            }
+            100% {
+                opacity: 0;
+                clip-path: inset(80% 0% 0% 0%);
+                transform: scale(0.95);
+            }
+        }
+
+        /* ============================================================ */
+        /* АНИМАЦИЯ ПОЯВЛЕНИЯ ВТОРОЙ СТРАНИЦЫ (полосами сверху → вниз) */
+        /* ============================================================ */
+        .page2-appear {
+            animation: appearStripes 1.2s ease forwards;
+        }
+
+        @keyframes appearStripes {
+            0% {
+                opacity: 0;
+                clip-path: inset(100% 0% 0% 0%);
+                transform: scale(0.95);
+            }
+            15% {
+                opacity: 0.2;
+                clip-path: inset(80% 0% 0% 0%);
+            }
+            30% {
+                opacity: 0.4;
+                clip-path: inset(60% 0% 0% 0%);
+            }
+            45% {
+                opacity: 0.6;
+                clip-path: inset(40% 0% 0% 0%);
+            }
+            60% {
+                opacity: 0.8;
+                clip-path: inset(20% 0% 0% 0%);
+            }
+            75% {
+                opacity: 0.9;
+                clip-path: inset(10% 0% 0% 0%);
+            }
+            90% {
+                opacity: 1;
+                clip-path: inset(2% 0% 0% 0%);
+            }
+            100% {
+                opacity: 1;
+                clip-path: inset(0% 0% 0% 0%);
+                transform: scale(1);
+            }
         }
 
         .studio {
@@ -392,6 +447,7 @@
     </button>
 
     <script>
+        // Фон с картинками
         const images = [
             'images/0000.png',
             'images/0002.png',
@@ -412,14 +468,20 @@
         changeBackground();
         setInterval(changeBackground, 10000);
 
-        // Переход на вторую страницу с эффектом распада
+        // ================================================================
+        // ПЕРЕХОД С ЭФФЕКТОМ ПОЛОС
+        // ================================================================
         document.getElementById('goToArchive').addEventListener('click', function() {
             const container = document.getElementById('mainContainer');
-            container.classList.add('fade-out');
+            
+            // Запускаем анимацию исчезновения полосами
+            container.classList.add('fade-out-stripes');
 
-            // После анимации переходим на вторую страницу
+            // Ждём окончания анимации и переходим
             setTimeout(() => {
-                window.location.href = 'page2.html';
+                // Перед переходом применяем класс появления для второй страницы
+                // Это будет работать, если на page2.html есть такой же класс
+                window.location.href = 'page2.html?appear=stripes';
             }, 1200);
         });
     </script>
