@@ -27,15 +27,55 @@
 
         .archive-content {
             text-align: center;
-            animation: fadeIn 1.2s ease-out;
             padding: 2rem;
             width: 100%;
             max-width: 500px;
+            /* Анимация появления полосами — по умолчанию скрыто */
+            opacity: 0;
+            clip-path: inset(100% 0% 0% 0%);
+            transform: scale(0.95);
         }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1); }
+        /* Класс для появления полосами (сверху → вниз) */
+        .archive-content.appear-stripes {
+            animation: appearStripes 1.2s ease forwards;
+        }
+
+        @keyframes appearStripes {
+            0% {
+                opacity: 0;
+                clip-path: inset(100% 0% 0% 0%);
+                transform: scale(0.95);
+            }
+            15% {
+                opacity: 0.2;
+                clip-path: inset(80% 0% 0% 0%);
+            }
+            30% {
+                opacity: 0.4;
+                clip-path: inset(60% 0% 0% 0%);
+            }
+            45% {
+                opacity: 0.6;
+                clip-path: inset(40% 0% 0% 0%);
+            }
+            60% {
+                opacity: 0.8;
+                clip-path: inset(20% 0% 0% 0%);
+            }
+            75% {
+                opacity: 0.9;
+                clip-path: inset(10% 0% 0% 0%);
+            }
+            90% {
+                opacity: 1;
+                clip-path: inset(2% 0% 0% 0%);
+            }
+            100% {
+                opacity: 1;
+                clip-path: inset(0% 0% 0% 0%);
+                transform: scale(1);
+            }
         }
 
         .progress-label {
@@ -51,7 +91,6 @@
             margin-bottom: 1.5rem;
         }
 
-        /* ШКАЛА ПРОГРЕССА — 1% */
         .progress-container {
             width: 100%;
             max-width: 400px;
@@ -90,9 +129,7 @@
             100% { left: 100%; }
         }
 
-        /* ============================================================ */
-        /* СТРЕЛКА + СТОЛБЕЦ С НАДПИСЬЮ */
-        /* ============================================================ */
+        /* СТРЕЛКА + СТОЛБЕЦ */
         .archive-toggle {
             display: flex;
             flex-direction: column;
@@ -124,7 +161,6 @@
             transform: rotate(180deg);
         }
 
-        /* СТОЛБЕЦ (скрыт по умолчанию) */
         .archive-column {
             max-height: 0;
             overflow: hidden;
@@ -279,21 +315,18 @@
     </style>
 </head>
 <body>
-    <div class="archive-content">
-        <!-- Проценты -->
+    <div class="archive-content" id="archiveContent">
+
         <div class="progress-label">1%</div>
 
-        <!-- Шкала прогресса (1%) -->
         <div class="progress-container">
             <div class="progress-bar"></div>
         </div>
 
-        <!-- СТРЕЛКА + РАСКРЫВАЮЩИЙСЯ СТОЛБЕЦ -->
         <div class="archive-toggle" id="archiveToggle">
             <div class="archive-arrow" id="archiveArrow">
                 <i class="fas fa-chevron-down"></i>
             </div>
-
             <div class="archive-column" id="archiveColumn">
                 <div class="archive-column-inner">
                     <div class="archive-status">
@@ -304,12 +337,10 @@
         </div>
     </div>
 
-    <!-- Кнопка "назад" -->
     <a href="index.html" class="back-link">
         <i class="fas fa-arrow-left"></i> назад
     </a>
 
-    <!-- СКРЫТАЯ КНОПКА -->
     <a href="https://qwe123zxc0909.github.io/Gearssite.github.io/" 
        class="secret-link" 
        target="_blank" 
@@ -324,13 +355,19 @@
         const column = document.getElementById('archiveColumn');
 
         toggle.addEventListener('click', function(e) {
-            // Не даём событию всплыть до скрытой кнопки
             e.stopPropagation();
-            
             arrow.classList.toggle('open');
             column.classList.toggle('open');
         });
 
+        // ===== ЗАПУСКАЕМ АНИМАЦИЮ ПОЯВЛЕНИЯ =====
+        // Проверяем, есть ли параметр в URL, или просто запускаем сразу
+        const content = document.getElementById('archiveContent');
+        
+        // Небольшая задержка, чтобы анимация сработала после перехода
+        setTimeout(() => {
+            content.classList.add('appear-stripes');
+        }, 100);
     </script>
 </body>
 </html>
