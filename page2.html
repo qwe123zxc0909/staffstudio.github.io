@@ -1,1 +1,230 @@
 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>~STAFF_STUDIO~ | архив</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: #0b0d10;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 1.5s ease-in-out;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 13, 16, 0.7);
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            width: 100%;
+            background: rgba(17, 20, 26, 0.9);
+            border-radius: 2.5rem;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 20, 40, 0.8), 0 0 0 1px rgba(30, 80, 180, 0.15);
+            animation: fadeIn 1s ease-out;
+            text-align: center;
+            border: 1px solid rgba(30, 80, 180, 0.2);
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .archive-icon {
+            font-size: 4rem;
+            color: #3a7bd5;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 20px rgba(30, 80, 180, 0.3));
+        }
+
+        /* ШКАЛА 98% */
+        .progress-container {
+            width: 100%;
+            background: rgba(20, 28, 42, 0.8);
+            border-radius: 60px;
+            padding: 6px;
+            border: 1px solid #243b5a;
+            margin: 1.5rem 0;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-bar {
+            height: 32px;
+            background: linear-gradient(90deg, #0f2a1f, #1f6fe0, #b07cff);
+            border-radius: 60px;
+            width: 98%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 16px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 30px rgba(60, 200, 80, 0.15);
+            transition: width 2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Анимация свечения на шкале */
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .progress-label {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #d0e2ff;
+            margin: 0.5rem 0;
+            letter-spacing: 2px;
+        }
+
+        .archive-status {
+            font-size: 1.2rem;
+            color: #5a7a9e;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            border-top: 1px solid #1a2840;
+            padding-top: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .archive-status i {
+            color: #3a7bd5;
+            margin-right: 10px;
+        }
+
+        /* Кнопка назад */
+        .back-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.7rem 2rem;
+            background: rgba(20, 28, 42, 0.7);
+            border-radius: 60px;
+            border: 1px solid #243b5a;
+            color: #5a7a9e;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            border-color: #4f8eff;
+            color: #6a9eff;
+            box-shadow: 0 0 20px rgba(30, 80, 180, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .back-btn i {
+            margin-right: 8px;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            .progress-label {
+                font-size: 2rem;
+            }
+            .archive-icon {
+                font-size: 3rem;
+            }
+            .progress-bar {
+                height: 26px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="archive-icon">
+            <i class="fas fa-archive"></i>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                98%
+            </div>
+        </div>
+
+        <div class="progress-label">98%</div>
+
+        <div class="archive-status">
+            <i class="fas fa-lock"></i> заархивировано
+        </div>
+
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> вернуться
+        </a>
+    </div>
+
+    <script>
+        // Тот же фон, что и на главной
+        const images = [
+            'images/0000.png',
+            'images/0002.png',
+            'images/0003.png',
+            'images/cvhkm1.png',
+            'images/fhjkl.png',
+            'images/fvhjkl.png',
+            'images/h,.png'
+        ];
+
+        let currentIndex = 0;
+
+        function changeBackground() {
+            document.body.style.backgroundImage = `url('${images[currentIndex]}')`;
+            currentIndex = (currentIndex + 1) % images.length;
+        }
+
+        changeBackground();
+        setInterval(changeBackground, 10000);
+    </script>
+</body>
+</html>
