@@ -130,7 +130,6 @@
             }
         }
 
-        /* Несколько разных позиций для книг */
         .book-pos-1 { top: 10%; left: 10%; }
         .book-pos-2 { top: 20%; right: 15%; }
         .book-pos-3 { bottom: 25%; left: 20%; }
@@ -140,7 +139,9 @@
         .book-pos-7 { bottom: 10%; left: 35%; }
         .book-pos-8 { top: 5%; left: 45%; }
 
-        /* Основной контент */
+        /* ============================================================ */
+        /* ОСНОВНОЙ КОНТЕНТ */
+        /* ============================================================ */
         .archive-content {
             position: relative;
             z-index: 1;
@@ -194,6 +195,7 @@
             }
         }
 
+        /* ПРОЦЕНТЫ — 4% */
         .progress-label {
             font-size: 8rem;
             font-weight: 800;
@@ -207,6 +209,7 @@
             margin-bottom: 1.5rem;
         }
 
+        /* ШКАЛА — 4% */
         .progress-container {
             width: 100%;
             max-width: 400px;
@@ -220,7 +223,7 @@
 
         .progress-bar {
             height: 20px;
-            width: 1%;
+            width: 4%;  /* ← 4% */
             background: linear-gradient(90deg, #ff3b3b, #cc0000);
             border-radius: 60px;
             transition: width 1.5s ease;
@@ -245,6 +248,9 @@
             100% { left: 100%; }
         }
 
+        /* ============================================================ */
+        /* СТРЕЛКА + СТОЛБЕЦ С НАДПИСЬЮ "процес разархивации..." */
+        /* ============================================================ */
         .archive-toggle {
             display: flex;
             flex-direction: column;
@@ -301,22 +307,24 @@
             backdrop-filter: blur(4px);
         }
 
+        /* НАДПИСЬ "процес разархивации..." */
         .archive-column-inner .archive-status {
             font-size: 2rem;
             font-weight: 700;
-            color: rgba(255, 50, 50, 0.85);
-            letter-spacing: 6px;
+            color: rgba(255, 200, 50, 0.8);
+            letter-spacing: 3px;
             text-transform: uppercase;
-            text-shadow: 0 0 40px rgba(255, 0, 0, 0.05);
+            text-shadow: 0 0 40px rgba(255, 200, 50, 0.05);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 14px;
             margin: 0;
+            font-family: 'Inter', sans-serif;
         }
 
         .archive-column-inner .archive-status i {
-            color: rgba(255, 50, 50, 0.7);
+            color: rgba(255, 200, 50, 0.6);
             font-size: 1.6rem;
         }
 
@@ -407,7 +415,7 @@
             }
             .archive-column-inner .archive-status {
                 font-size: 1.4rem;
-                letter-spacing: 4px;
+                letter-spacing: 3px;
             }
             .progress-container {
                 max-width: 300px;
@@ -431,11 +439,11 @@
     </style>
 </head>
 <body>
-    <!-- КНИГА — будет создаваться динамически в разных местах -->
+    <!-- КНИГА -->
     <div id="bookContainer"></div>
 
     <div class="archive-content" id="archiveContent">
-        <div class="progress-label">1%</div>
+        <div class="progress-label">4%</div>
         <div class="progress-container">
             <div class="progress-bar"></div>
         </div>
@@ -446,7 +454,7 @@
             <div class="archive-column" id="archiveColumn">
                 <div class="archive-column-inner">
                     <div class="archive-status">
-                        <i class="fas fa-lock"></i> заархивировано
+                        <i class="fas fa-spinner fa-pulse"></i> процесс разархивации...
                     </div>
                 </div>
             </div>
@@ -487,38 +495,29 @@
         // ================================================================
         const bookContainer = document.getElementById('bookContainer');
 
-        // Список позиций
         const positions = [
             'book-pos-1', 'book-pos-2', 'book-pos-3', 'book-pos-4',
             'book-pos-5', 'book-pos-6', 'book-pos-7', 'book-pos-8'
         ];
 
         function showBook() {
-            // Удаляем старую книгу, если есть
             const oldBook = bookContainer.querySelector('.book-overlay');
             if (oldBook) {
                 oldBook.remove();
             }
 
-            // Создаём новую книгу
             const wrapper = document.createElement('div');
             wrapper.className = 'book-overlay visible';
-
-            // Случайная позиция
             const randomPos = positions[Math.floor(Math.random() * positions.length)];
             wrapper.classList.add(randomPos);
 
-            // Иконка книги
             const icon = document.createElement('i');
             icon.className = 'fas fa-book-open book-icon';
             wrapper.appendChild(icon);
-
             bookContainer.appendChild(wrapper);
 
-            // Через 3 секунды скрываем
             setTimeout(() => {
                 wrapper.classList.remove('visible');
-                // Удаляем после анимации
                 setTimeout(() => {
                     if (wrapper.parentNode) {
                         wrapper.remove();
@@ -527,7 +526,6 @@
             }, 3000);
         }
 
-        // Запускаем цикл
         setTimeout(() => {
             showBook();
             setInterval(showBook, 10000);
