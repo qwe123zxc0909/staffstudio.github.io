@@ -124,130 +124,6 @@
             100% { opacity: 1; clip-path: inset(0% 0% 0% 0%); transform: scale(1); }
         }
 
-        /* ===== СЧЁТЧИК ОНЛАЙН ===== */
-        .online-counter {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 20;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 200, 100, 0.08);
-            border-radius: 40px;
-            padding: 8px 22px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: rgba(255, 200, 100, 0.7);
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-            pointer-events: none;
-            user-select: none;
-        }
-        .online-counter .dot {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #4ade80;
-            animation: pulseDot 2s infinite;
-            box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);
-        }
-        @keyframes pulseDot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.8); }
-        }
-        .online-counter .count {
-            font-weight: 700;
-            color: #fff;
-            font-size: 1.1rem;
-            min-width: 20px;
-            display: inline-block;
-            text-align: center;
-        }
-        .online-counter .label {
-            font-weight: 400;
-            color: rgba(255, 200, 100, 0.5);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* ===== ПОЛЕ НИК И IP ===== */
-        .user-info {
-            position: fixed;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 15;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 200, 100, 0.04);
-            border-radius: 30px;
-            padding: 4px 8px 4px 16px;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.3);
-            pointer-events: auto;
-        }
-        .user-info .ip-display {
-            color: rgba(255, 200, 100, 0.5);
-            font-weight: 400;
-            letter-spacing: 0.5px;
-            font-size: 0.7rem;
-        }
-        .user-info .nick-input {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 20px;
-            padding: 4px 12px;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.75rem;
-            font-family: 'Inter', sans-serif;
-            outline: none;
-            width: 100px;
-            transition: 0.3s;
-        }
-        .user-info .nick-input:focus {
-            border-color: rgba(255, 200, 100, 0.15);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        .user-info .nick-input::placeholder {
-            color: rgba(255, 255, 255, 0.15);
-        }
-        .user-info .nick-label {
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .user-info .save-btn {
-            background: rgba(255, 200, 100, 0.05);
-            border: 1px solid rgba(255, 200, 100, 0.05);
-            border-radius: 20px;
-            padding: 4px 12px;
-            color: rgba(255, 200, 100, 0.3);
-            font-size: 0.6rem;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: 'Inter', sans-serif;
-        }
-        .user-info .save-btn:hover {
-            background: rgba(255, 200, 100, 0.08);
-            border-color: rgba(255, 200, 100, 0.1);
-            color: rgba(255, 200, 100, 0.5);
-        }
-        .user-info .cooldown {
-            color: rgba(255, 200, 100, 0.15);
-            font-size: 0.55rem;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-
         /* ===== ПРОЦЕНТЫ И ШКАЛА ===== */
         .progress-label {
             font-size: 8rem;
@@ -435,32 +311,10 @@
             .secret-link { width: 50px; height: 50px; bottom: 20px; right: 20px; }
             .secret-hint { width: 50px; height: 50px; bottom: 20px; right: 20px; }
             .book-icon { font-size: 3rem; }
-            .online-counter { top: 12px; padding: 6px 16px; font-size: 0.75rem; gap: 8px; }
-            .online-counter .count { font-size: 0.95rem; }
-            .online-counter .dot { width: 8px; height: 8px; }
-            .user-info { top: 65px; padding: 4px 6px 4px 12px; flex-wrap: wrap; justify-content: center; }
-            .user-info .nick-input { width: 80px; font-size: 0.65rem; }
-            .user-info .ip-display { font-size: 0.6rem; }
         }
     </style>
 </head>
 <body>
-
-    <!-- ===== СЧЁТЧИК ОНЛАЙН ===== -->
-    <div class="online-counter">
-        <span class="dot"></span>
-        <span class="label">онлайн</span>
-        <span class="count" id="onlineCount">0</span>
-    </div>
-
-    <!-- ===== ПОЛЕ С IP И НИКОМ ===== -->
-    <div class="user-info" id="userInfo">
-        <span class="ip-display" id="ipDisplay">–</span>
-        <span class="nick-label">ник</span>
-        <input type="text" class="nick-input" id="nickInput" placeholder="введи ник" maxlength="16">
-        <button class="save-btn" id="saveNickBtn">✔</button>
-        <span class="cooldown" id="cooldownDisplay"></span>
-    </div>
 
     <!-- КНИГА -->
     <div id="bookContainer"></div>
@@ -496,186 +350,7 @@
     <div class="secret-hint"></div>
 
     <script>
-        // ================================================================
-        // 1. РЕАЛЬНЫЙ СЧЁТЧИК ОНЛАЙН (ЧЕРЕЗ whos.amung.us)
-        // ================================================================
-        const countElement = document.getElementById('onlineCount');
-
-        // Вставляем виджет для реального подсчёта
-        (function() {
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.async = true;
-            script.src = 'https://widgets.amung.us/classic.js';
-            
-            script.onload = function() {
-                // Пытаемся получить реальное число из виджета
-                setTimeout(() => {
-                    const widget = document.querySelector('.amungus-counter');
-                    if (widget) {
-                        const count = widget.getAttribute('data-visitors');
-                        if (count && count !== '0') {
-                            countElement.textContent = count;
-                        }
-                    }
-                }, 2000);
-            };
-
-            document.head.appendChild(script);
-        })();
-
-        // Фолбек: если виджет не загрузился, показываем реальное количество через API
-        // Используем бесплатный API для подсчёта посетителей
-        async function getRealOnlineCount() {
-            try {
-                // Используем бесплатный сервис для подсчёта
-                const response = await fetch('https://api.countapi.xyz/hit/staffstudio_online/visitors');
-                const data = await response.json();
-                if (data && data.value) {
-                    countElement.textContent = data.value;
-                }
-            } catch (e) {
-                // Если API не работает, оставляем фолбек
-                console.log('Счётчик через API не работает');
-            }
-        }
-
-        // Запускаем реальный счётчик через API каждые 30 секунд
-        getRealOnlineCount();
-        setInterval(getRealOnlineCount, 30000);
-
-        // ================================================================
-        // 2. IP И НИК (через localStorage)
-        // ================================================================
-        const ipDisplay = document.getElementById('ipDisplay');
-        const nickInput = document.getElementById('nickInput');
-        const saveBtn = document.getElementById('saveNickBtn');
-        const cooldownDisplay = document.getElementById('cooldownDisplay');
-
-        // Получаем IP через бесплатный сервис
-        async function getIP() {
-            try {
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                return data.ip;
-            } catch (e) {
-                return '0.0.0.0';
-            }
-        }
-
-        // Загружаем сохранённые данные
-        function loadUserData() {
-            const savedNick = localStorage.getItem('staffstudio_nick');
-            const savedIP = localStorage.getItem('staffstudio_ip');
-            const lastChange = localStorage.getItem('staffstudio_nick_change');
-
-            // Показываем IP
-            getIP().then(ip => {
-                ipDisplay.textContent = ip;
-                // Если IP изменился, сбрасываем ник (безопасность)
-                if (savedIP && savedIP !== ip) {
-                    localStorage.removeItem('staffstudio_nick');
-                    localStorage.removeItem('staffstudio_nick_change');
-                    nickInput.value = '';
-                } else if (savedNick) {
-                    nickInput.value = savedNick;
-                }
-                // Сохраняем текущий IP
-                localStorage.setItem('staffstudio_ip', ip);
-            });
-
-            // Проверяем кулдаун
-            if (lastChange) {
-                const timePassed = (Date.now() - parseInt(lastChange)) / 1000 / 60; // в минутах
-                if (timePassed < 60) {
-                    const remain = Math.ceil(60 - timePassed);
-                    cooldownDisplay.textContent = `⏳ ${remain}м`;
-                    saveBtn.disabled = true;
-                    saveBtn.style.opacity = '0.3';
-                    // Обновляем каждую минуту
-                    const interval = setInterval(() => {
-                        const newTimePassed = (Date.now() - parseInt(lastChange)) / 1000 / 60;
-                        if (newTimePassed >= 60) {
-                            cooldownDisplay.textContent = '';
-                            saveBtn.disabled = false;
-                            saveBtn.style.opacity = '1';
-                            clearInterval(interval);
-                        } else {
-                            const remain2 = Math.ceil(60 - newTimePassed);
-                            cooldownDisplay.textContent = `⏳ ${remain2}м`;
-                        }
-                    }, 60000);
-                }
-            }
-        }
-
-        // Сохраняем ник
-        function saveNick() {
-            const nick = nickInput.value.trim();
-            if (nick.length < 2) {
-                alert('Минимум 2 символа');
-                return;
-            }
-            if (nick.length > 16) {
-                alert('Максимум 16 символов');
-                return;
-            }
-
-            const lastChange = localStorage.getItem('staffstudio_nick_change');
-            if (lastChange) {
-                const timePassed = (Date.now() - parseInt(lastChange)) / 1000 / 60;
-                if (timePassed < 60) {
-                    const remain = Math.ceil(60 - timePassed);
-                    alert(`Подожди ${remain} минут(ы) до смены ника`);
-                    return;
-                }
-            }
-
-            localStorage.setItem('staffstudio_nick', nick);
-            localStorage.setItem('staffstudio_nick_change', Date.now().toString());
-            cooldownDisplay.textContent = '⏳ 60м';
-            saveBtn.disabled = true;
-            saveBtn.style.opacity = '0.3';
-
-            // Обновляем отображение
-            updateDisplay();
-
-            // Через 60 минут разблокируем
-            setTimeout(() => {
-                cooldownDisplay.textContent = '';
-                saveBtn.disabled = false;
-                saveBtn.style.opacity = '1';
-            }, 60000 * 60);
-        }
-
-        // Обновляем отображение IP/ник
-        function updateDisplay() {
-            const savedNick = localStorage.getItem('staffstudio_nick');
-            if (savedNick) {
-                ipDisplay.textContent = savedNick;
-                ipDisplay.style.color = 'rgba(255, 200, 100, 0.7)';
-            } else {
-                getIP().then(ip => {
-                    ipDisplay.textContent = ip;
-                    ipDisplay.style.color = 'rgba(255, 200, 100, 0.5)';
-                });
-            }
-        }
-
-        // Обработчики
-        saveBtn.addEventListener('click', saveNick);
-        nickInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') saveNick();
-        });
-
-        // Загружаем данные
-        loadUserData();
-        // Обновляем отображение каждые 5 секунд (на случай, если ник изменился в другой вкладке)
-        setInterval(updateDisplay, 5000);
-
-        // ================================================================
-        // ТОГГЛ СТОЛБЦА
-        // ================================================================
+        // ===== ТОГГЛ СТОЛБЦА =====
         const toggle = document.getElementById('archiveToggle');
         const arrow = document.getElementById('archiveArrow');
         const column = document.getElementById('archiveColumn');
@@ -686,17 +361,13 @@
             column.classList.toggle('open');
         });
 
-        // ================================================================
-        // ПОЯВЛЕНИЕ СТРАНИЦЫ
-        // ================================================================
+        // ===== ПОЯВЛЕНИЕ СТРАНИЦЫ =====
         const content = document.getElementById('archiveContent');
         setTimeout(() => {
             content.classList.add('appear-stripes');
         }, 100);
 
-        // ================================================================
-        // КНИГА
-        // ================================================================
+        // ===== КНИГА =====
         const bookContainer = document.getElementById('bookContainer');
         const positions = [
             'book-pos-1', 'book-pos-2', 'book-pos-3', 'book-pos-4',
