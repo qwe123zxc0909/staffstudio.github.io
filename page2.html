@@ -124,21 +124,21 @@
             100% { opacity: 1; clip-path: inset(0% 0% 0% 0%); transform: scale(1); }
         }
 
-        /* ===== ПРОЦЕНТЫ 76% ===== */
+        /* ===== ПРОЦЕНТЫ 100% ===== */
         .progress-label {
             font-size: 8rem;
             font-weight: 800;
             letter-spacing: 4px;
-            background: linear-gradient(135deg, #ff3b3b, #cc0000);
+            background: linear-gradient(135deg, #4ade80, #22c55e);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 60px rgba(255, 0, 0, 0.15);
+            text-shadow: 0 0 60px rgba(74, 222, 128, 0.15);
             line-height: 1;
             margin-bottom: 1.5rem;
         }
 
-        /* ===== ШКАЛА — 76% ===== */
+        /* ===== ШКАЛА — 100% ===== */
         .progress-container {
             width: 100%;
             max-width: 400px;
@@ -151,11 +151,11 @@
         }
         .progress-bar {
             height: 20px;
-            width: 76%;
-            background: linear-gradient(90deg, #ff3b3b, #cc0000);
+            width: 100%;
+            background: linear-gradient(90deg, #4ade80, #22c55e);
             border-radius: 60px;
             transition: width 1.5s ease;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
+            box-shadow: 0 0 30px rgba(74, 222, 128, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -166,15 +166,15 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-            animation: shimmer 3s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            animation: shimmer 2.5s infinite;
         }
         @keyframes shimmer {
             0% { left: -100%; }
             100% { left: 100%; }
         }
 
-        /* ===== СТРЕЛКА + СТОЛБЕЦ ===== */
+        /* ===== СТРЕЛКА + СТОЛБЕЦ С ПАРОЛЕМ ===== */
         .archive-toggle {
             display: flex;
             flex-direction: column;
@@ -185,17 +185,17 @@
         }
         .archive-arrow {
             font-size: 2.5rem;
-            color: rgba(255, 60, 60, 0.8);
+            color: rgba(74, 222, 128, 0.6);
             transition: transform 0.4s ease, color 0.3s ease;
             display: inline-block;
             padding: 8px 16px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 0, 0, 0.04);
-            background: rgba(255, 0, 0, 0.01);
+            border: 1px solid rgba(74, 222, 128, 0.08);
+            background: rgba(74, 222, 128, 0.02);
         }
         .archive-arrow:hover {
-            color: rgba(255, 80, 80, 0.9);
-            border-color: rgba(255, 0, 0, 0.06);
+            color: rgba(74, 222, 128, 0.9);
+            border-color: rgba(74, 222, 128, 0.15);
         }
         .archive-arrow.open { transform: rotate(180deg); }
         .archive-column {
@@ -212,27 +212,40 @@
             padding: 16px 20px 8px 20px;
         }
         .archive-column-inner {
-            background: rgba(255, 0, 0, 0.02);
-            border: 1px solid rgba(255, 0, 0, 0.04);
+            background: rgba(74, 222, 128, 0.03);
+            border: 1px solid rgba(74, 222, 128, 0.06);
             border-radius: 16px;
-            padding: 16px 20px;
+            padding: 20px 24px;
             backdrop-filter: blur(4px);
         }
         .archive-column-inner .archive-status {
-            font-size: 1.8rem;
+            font-size: 2.4rem;
             font-weight: 700;
-            color: rgba(255, 200, 50, 0.8);
-            letter-spacing: 2px;
+            color: #4ade80;
+            letter-spacing: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 14px;
+            gap: 16px;
             margin: 0;
             text-transform: none;
+            font-family: 'Inter', monospace;
+            text-shadow: 0 0 60px rgba(74, 222, 128, 0.15);
         }
         .archive-column-inner .archive-status i {
-            color: rgba(255, 200, 50, 0.6);
-            font-size: 1.6rem;
+            color: rgba(74, 222, 128, 0.5);
+            font-size: 1.8rem;
+        }
+        .archive-column-inner .archive-status .lock-icon {
+            color: rgba(74, 222, 128, 0.3);
+            font-size: 1.4rem;
+        }
+        .archive-column-inner .archive-status .password {
+            background: rgba(74, 222, 128, 0.05);
+            padding: 4px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(74, 222, 128, 0.1);
+            letter-spacing: 6px;
         }
 
         /* ===== КНОПКИ ===== */
@@ -308,7 +321,8 @@
         @media (max-width: 600px) {
             .progress-label { font-size: 5rem; }
             .archive-arrow { font-size: 2rem; }
-            .archive-column-inner .archive-status { font-size: 1.4rem; letter-spacing: 2px; }
+            .archive-column-inner .archive-status { font-size: 1.6rem; letter-spacing: 3px; flex-wrap: wrap; gap: 10px; }
+            .archive-column-inner .archive-status .password { letter-spacing: 3px; padding: 2px 12px; }
             .progress-container { max-width: 300px; }
             .secret-link { width: 50px; height: 50px; bottom: 20px; right: 20px; }
             .secret-hint { width: 50px; height: 50px; bottom: 20px; right: 20px; }
@@ -322,7 +336,7 @@
     <div id="bookContainer"></div>
 
     <div class="archive-content" id="archiveContent">
-        <div class="progress-label">76%</div>
+        <div class="progress-label">100%</div>
         <div class="progress-container">
             <div class="progress-bar"></div>
         </div>
@@ -333,7 +347,8 @@
             <div class="archive-column" id="archiveColumn">
                 <div class="archive-column-inner">
                     <div class="archive-status">
-                        <i class="fas fa-spinner fa-pulse"></i> Разархивация пароля
+                        <i class="fas fa-lock-open lock-icon"></i>
+                        <span class="password">Evklid</span>
                     </div>
                 </div>
             </div>
