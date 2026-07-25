@@ -124,7 +124,7 @@
             100% { opacity: 1; clip-path: inset(0% 0% 0% 0%); transform: scale(1); }
         }
 
-        /* ===== ПРОЦЕНТЫ И ШКАЛА ===== */
+        /* ===== ПРОЦЕНТЫ ===== */
         .progress-label {
             font-size: 8rem;
             font-weight: 800;
@@ -137,6 +137,8 @@
             line-height: 1;
             margin-bottom: 1.5rem;
         }
+
+        /* ===== ШКАЛА — 76% ===== */
         .progress-container {
             width: 100%;
             max-width: 400px;
@@ -149,7 +151,7 @@
         }
         .progress-bar {
             height: 20px;
-            width: 4%;
+            width: 76%;  /* ← 76% */
             background: linear-gradient(90deg, #ff3b3b, #cc0000);
             border-radius: 60px;
             transition: width 1.5s ease;
@@ -320,7 +322,7 @@
     <div id="bookContainer"></div>
 
     <div class="archive-content" id="archiveContent">
-        <div class="progress-label">4%</div>
+        <div class="progress-label">76%</div>
         <div class="progress-container">
             <div class="progress-bar"></div>
         </div>
