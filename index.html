@@ -60,92 +60,19 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* ============================================================ */
-        /* АНИМАЦИЯ ИСЧЕЗНОВЕНИЯ — ПОЛОСАМИ (снизу → сверху) */
-        /* ============================================================ */
         .container.fade-out-stripes {
             animation: disappearStripes 1.2s ease forwards;
         }
 
         @keyframes disappearStripes {
-            0% {
-                opacity: 1;
-                clip-path: inset(0% 0% 0% 0%);
-                transform: scale(1);
-            }
-            15% {
-                opacity: 1;
-                clip-path: inset(0% 0% 90% 0%);
-            }
-            30% {
-                opacity: 1;
-                clip-path: inset(0% 0% 80% 0%);
-            }
-            45% {
-                opacity: 0.9;
-                clip-path: inset(0% 0% 70% 0%);
-            }
-            60% {
-                opacity: 0.7;
-                clip-path: inset(15% 0% 60% 0%);
-            }
-            75% {
-                opacity: 0.5;
-                clip-path: inset(30% 0% 40% 0%);
-            }
-            90% {
-                opacity: 0.2;
-                clip-path: inset(60% 0% 20% 0%);
-            }
-            100% {
-                opacity: 0;
-                clip-path: inset(80% 0% 0% 0%);
-                transform: scale(0.95);
-            }
-        }
-
-        /* ============================================================ */
-        /* АНИМАЦИЯ ПОЯВЛЕНИЯ ВТОРОЙ СТРАНИЦЫ (полосами сверху → вниз) */
-        /* ============================================================ */
-        .page2-appear {
-            animation: appearStripes 1.2s ease forwards;
-        }
-
-        @keyframes appearStripes {
-            0% {
-                opacity: 0;
-                clip-path: inset(100% 0% 0% 0%);
-                transform: scale(0.95);
-            }
-            15% {
-                opacity: 0.2;
-                clip-path: inset(80% 0% 0% 0%);
-            }
-            30% {
-                opacity: 0.4;
-                clip-path: inset(60% 0% 0% 0%);
-            }
-            45% {
-                opacity: 0.6;
-                clip-path: inset(40% 0% 0% 0%);
-            }
-            60% {
-                opacity: 0.8;
-                clip-path: inset(20% 0% 0% 0%);
-            }
-            75% {
-                opacity: 0.9;
-                clip-path: inset(10% 0% 0% 0%);
-            }
-            90% {
-                opacity: 1;
-                clip-path: inset(2% 0% 0% 0%);
-            }
-            100% {
-                opacity: 1;
-                clip-path: inset(0% 0% 0% 0%);
-                transform: scale(1);
-            }
+            0% { opacity: 1; clip-path: inset(0% 0% 0% 0%); transform: scale(1); }
+            15% { opacity: 1; clip-path: inset(0% 0% 90% 0%); }
+            30% { opacity: 1; clip-path: inset(0% 0% 80% 0%); }
+            45% { opacity: 0.9; clip-path: inset(0% 0% 70% 0%); }
+            60% { opacity: 0.7; clip-path: inset(15% 0% 60% 0%); }
+            75% { opacity: 0.5; clip-path: inset(30% 0% 40% 0%); }
+            90% { opacity: 0.2; clip-path: inset(60% 0% 20% 0%); }
+            100% { opacity: 0; clip-path: inset(80% 0% 0% 0%); transform: scale(0.95); }
         }
 
         .studio {
@@ -302,7 +229,377 @@
             color: #4f8eff;
         }
 
-        /* МАЛЕНЬКАЯ КНОПКА В ПРАВОМ НИЖНЕМ УГЛУ */
+        /* ============================================================ */
+        /* ВЫДВИЖНАЯ ПАНЕЛЬ МУЗЫКИ (справа) */
+        /* ============================================================ */
+        .music-panel {
+            position: fixed;
+            top: 0;
+            right: -380px;
+            width: 360px;
+            height: 100%;
+            z-index: 1000;
+            background: rgba(11, 13, 16, 0.94);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(30, 80, 180, 0.08);
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 2rem 1.8rem;
+            box-shadow: -15px 0 60px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .music-panel.open {
+            right: 0;
+        }
+
+        .music-panel .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .music-panel .panel-header h3 {
+            color: #b0c8e8;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .music-panel .panel-header h3 i {
+            color: #4f8eff;
+        }
+
+        .music-panel .close-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: none;
+            color: #5a7a9e;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .music-panel .close-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #b0c8e8;
+        }
+
+        /* ===== ПЛАСТИНКА ===== */
+        .vinyl-player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0;
+        }
+
+        .vinyl-disc {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 40% 40%, #222, #0a0a0a 60%, #1a1a1a);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(0, 0, 0, 0.8);
+            border: 2px solid #2a2a2a;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: box-shadow 0.5s;
+        }
+
+        .vinyl-disc::before {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: repeating-radial-gradient(circle at 50% 50%,
+                    transparent,
+                    transparent 3px,
+                    rgba(255, 255, 255, 0.02) 4px,
+                    transparent 5px);
+            animation: none;
+        }
+
+        .vinyl-disc.spinning::before {
+            animation: spinVinyl 2s linear infinite;
+        }
+
+        .vinyl-disc .center-label {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 45% 45%, #1a2a4a, #0a0a1a);
+            border: 2px solid #3a5a7a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            color: #5a7a9e;
+            letter-spacing: 1px;
+            z-index: 2;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .vinyl-disc .center-label i {
+            font-size: 1rem;
+            color: #4f8eff;
+        }
+
+        @keyframes spinVinyl {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Текущий трек */
+        .current-track-name {
+            color: #d0e2ff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 0.8rem;
+            text-align: center;
+            min-height: 2rem;
+            letter-spacing: 0.5px;
+        }
+
+        .current-track-name .placeholder {
+            color: #3a5a7a;
+            font-weight: 400;
+            font-size: 0.85rem;
+        }
+
+        /* КНОПКИ УПРАВЛЕНИЯ */
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            margin: 0.8rem 0 1rem;
+        }
+
+        .player-controls button {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            color: #8a9aba;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .player-controls button:hover {
+            background: rgba(30, 80, 180, 0.08);
+            border-color: rgba(30, 80, 180, 0.1);
+            color: #d0e2ff;
+        }
+
+        .player-controls button.play-btn {
+            width: 56px;
+            height: 56px;
+            background: rgba(30, 80, 180, 0.08);
+            border-color: rgba(30, 80, 180, 0.12);
+            color: #4f8eff;
+            font-size: 1.4rem;
+        }
+
+        .player-controls button.play-btn:hover {
+            background: rgba(30, 80, 180, 0.15);
+            border-color: rgba(30, 80, 180, 0.2);
+            box-shadow: 0 0 30px rgba(30, 80, 180, 0.1);
+        }
+
+        /* ПОЛОСА ГРОМКОСТИ */
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 0.5rem;
+            width: 100%;
+        }
+
+        .volume-control i {
+            color: #3a5a7a;
+            font-size: 0.8rem;
+        }
+
+        .volume-control input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .volume-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4f8eff;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(30, 80, 180, 0.2);
+        }
+
+        .volume-control input[type="range"]::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4f8eff;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* СПИСОК ТРЕКОВ (скролл) */
+        .track-list {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding-right: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .track-list::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .track-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .track-list::-webkit-scrollbar-thumb {
+            background: rgba(30, 80, 180, 0.2);
+            border-radius: 10px;
+        }
+
+        .track-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            cursor: pointer;
+            transition: 0.2s;
+            color: #8a9aba;
+            font-size: 0.8rem;
+        }
+
+        .track-item:hover {
+            background: rgba(30, 80, 180, 0.05);
+            border-color: rgba(30, 80, 180, 0.06);
+            color: #d0e2ff;
+        }
+
+        .track-item.active {
+            background: rgba(30, 80, 180, 0.06);
+            border-color: rgba(30, 80, 180, 0.1);
+            color: #4f8eff;
+        }
+
+        .track-item .track-number {
+            color: #3a5a7a;
+            font-size: 0.6rem;
+            min-width: 20px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .track-item .track-name {
+            flex: 1;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .track-item .track-status {
+            font-size: 0.6rem;
+            color: #3a5a7a;
+        }
+
+        .track-item.active .track-status {
+            color: #4f8eff;
+        }
+
+        .empty-tracks {
+            color: #3a5a7a;
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.8rem;
+        }
+
+        .empty-tracks i {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            opacity: 0.2;
+        }
+
+        /* КНОПКА ОТКРЫТИЯ ПАНЕЛИ */
+        .music-toggle-btn {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            z-index: 999;
+            background: rgba(11, 13, 16, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(30, 80, 180, 0.08);
+            border-right: none;
+            border-radius: 20px 0 0 20px;
+            padding: 14px 10px 14px 14px;
+            color: #5a7a9e;
+            cursor: pointer;
+            transition: 0.3s;
+            writing-mode: vertical-rl;
+            letter-spacing: 3px;
+            font-size: 0.65rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .music-toggle-btn i {
+            writing-mode: horizontal-tb;
+            font-size: 1.2rem;
+            color: #4f8eff;
+        }
+
+        .music-toggle-btn:hover {
+            background: rgba(11, 13, 16, 0.9);
+            border-color: rgba(30, 80, 180, 0.15);
+            color: #b0c8e8;
+            padding-right: 14px;
+        }
+
+        .music-toggle-btn:hover i {
+            color: #6a9eff;
+        }
+
         .secret-btn {
             position: fixed;
             bottom: 20px;
@@ -353,10 +650,105 @@
                 bottom: 15px;
                 right: 15px;
             }
+            .music-panel {
+                width: 300px;
+                right: -320px;
+                padding: 1.5rem 1.2rem;
+            }
+            .music-panel.open {
+                right: 0;
+            }
+            .music-toggle-btn {
+                padding: 10px 6px 10px 10px;
+                font-size: 0.55rem;
+                letter-spacing: 2px;
+            }
+            .music-toggle-btn i {
+                font-size: 1rem;
+            }
+            .vinyl-disc {
+                width: 110px;
+                height: 110px;
+            }
+            .vinyl-disc .center-label {
+                width: 32px;
+                height: 32px;
+            }
+            .player-controls button {
+                width: 36px;
+                height: 36px;
+                font-size: 0.8rem;
+            }
+            .player-controls button.play-btn {
+                width: 48px;
+                height: 48px;
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- ============================================================ -->
+    <!-- ВЫДВИЖНАЯ ПАНЕЛЬ МУЗЫКИ -->
+    <!-- ============================================================ -->
+    <div class="music-panel" id="musicPanel">
+        <div class="panel-header">
+            <h3><i class="fas fa-record-vinyl"></i> Проигрыватель</h3>
+            <button class="close-btn" id="closeMusicPanel">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- ПЛАСТИНКА -->
+        <div class="vinyl-player">
+            <div class="vinyl-disc" id="vinylDisc">
+                <div class="center-label">
+                    <i class="fas fa-music"></i>
+                </div>
+            </div>
+            <div class="current-track-name" id="currentTrackDisplay">
+                <span class="placeholder">выберите трек</span>
+            </div>
+        </div>
+
+        <!-- УПРАВЛЕНИЕ -->
+        <div class="player-controls">
+            <button id="prevTrack" title="Предыдущий">
+                <i class="fas fa-step-backward"></i>
+            </button>
+            <button class="play-btn" id="playPauseBtn" title="Воспроизвести/Пауза">
+                <i class="fas fa-play"></i>
+            </button>
+            <button id="nextTrack" title="Следующий">
+                <i class="fas fa-step-forward"></i>
+            </button>
+        </div>
+
+        <!-- ГРОМКОСТЬ -->
+        <div class="volume-control">
+            <i class="fas fa-volume-down"></i>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
+            <i class="fas fa-volume-up"></i>
+        </div>
+
+        <!-- СПИСОК ТРЕКОВ -->
+        <div class="track-list" id="trackList">
+            <div class="empty-tracks">
+                <i class="fas fa-headphones"></i>
+                Загрузите mp3 файлы в папку music/
+            </div>
+        </div>
+    </div>
+
+    <!-- КНОПКА ОТКРЫТИЯ ПАНЕЛИ -->
+    <button class="music-toggle-btn" id="openMusicPanel">
+        <i class="fas fa-chevron-left"></i> музыка
+    </button>
+
+    <!-- ============================================================ -->
+    <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
+    <!-- ============================================================ -->
     <div class="container" id="mainContainer">
 
         <div class="studio">
@@ -373,6 +765,7 @@
 
         <div class="links">
 
+            <!-- ПЕРВЫЙ БЛОК — ГРАДИЕНТ -->
             <a href="https://t.me/KVOLT_EVKLID" target="_blank" class="link-item link-gradient">
                 <i class="fab fa-telegram"></i>
                 <span>TGK</span>
@@ -403,8 +796,10 @@
                 <span>YouTube</span>
             </a>
 
+            <!-- РАЗДЕЛИТЕЛЬ -->
             <div class="group-divider">✦ STAFF STUDIO ✦</div>
 
+            <!-- ВТОРОЙ БЛОК — СИНЕ-ЧЁРНЫЙ -->
             <a href="https://t.me/STAFF_STUDIO_official" target="_blank" class="link-item">
                 <i class="fas fa-users"></i> STAFF STUDIO
             </a>
@@ -429,6 +824,11 @@
                 <i class="fas fa-book"></i> Wiki
             </a>
 
+            <!-- OMEGACRAFT — в переходнике -->
+            <a href="https://qwe123zxc0909.github.io/omegacraft.github.io/" target="_blank" class="link-item">
+                <i class="fas fa-cube"></i> OmegaCraft
+            </a>
+
         </div>
 
         <div class="footer">
@@ -441,13 +841,15 @@
 
     </div>
 
-    <!-- МАЛЕНЬКАЯ КНОПКА ПЕРЕХОДА -->
+    <!-- КНОПКА ПЕРЕХОДА НА 2 СТРАНИЦУ -->
     <button class="secret-btn" id="goToArchive" title="Перейти в архив">
         <i class="fas fa-archive"></i>
     </button>
 
     <script>
-        // Фон с картинками
+        // ================================================================
+        // ФОН
+        // ================================================================
         const images = [
             'images/0000.png',
             'images/0002.png',
@@ -469,21 +871,244 @@
         setInterval(changeBackground, 10000);
 
         // ================================================================
-        // ПЕРЕХОД С ЭФФЕКТОМ ПОЛОС
+        // ПЕРЕХОД НА 2 СТРАНИЦУ
         // ================================================================
         document.getElementById('goToArchive').addEventListener('click', function() {
             const container = document.getElementById('mainContainer');
-            
-            // Запускаем анимацию исчезновения полосами
             container.classList.add('fade-out-stripes');
-
-            // Ждём окончания анимации и переходим
             setTimeout(() => {
-                // Перед переходом применяем класс появления для второй страницы
-                // Это будет работать, если на page2.html есть такой же класс
-                window.location.href = 'page2.html?appear=stripes';
+                window.location.href = 'page2.html';
             }, 1200);
         });
+
+        // ================================================================
+        // МУЗЫКАЛЬНЫЙ ПЛЕЕР
+        // ================================================================
+        // ---- СПИСОК ТРЕКОВ (ДОБАВЛЯЙ СВОИ MP3) ----
+        const trackFiles = [
+            'track1.mp3',
+            'track2.mp3',
+            'track3.mp3',
+            // Добавляй сюда: 'имя_файла.mp3',
+        ];
+
+        // ---- ЭЛЕМЕНТЫ ----
+        const panel = document.getElementById('musicPanel');
+        const openBtn = document.getElementById('openMusicPanel');
+        const closeBtn = document.getElementById('closeMusicPanel');
+        const trackListEl = document.getElementById('trackList');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const prevBtn = document.getElementById('prevTrack');
+        const nextBtn = document.getElementById('nextTrack');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const vinylDisc = document.getElementById('vinylDisc');
+        const currentTrackDisplay = document.getElementById('currentTrackDisplay');
+
+        let currentTrackIndex = -1;
+        let audio = null;
+        let isPlaying = false;
+
+        // ---- ОТКРЫТИЕ/ЗАКРЫТИЕ ПАНЕЛИ ----
+        openBtn.addEventListener('click', () => panel.classList.add('open'));
+        closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+
+        document.addEventListener('click', (e) => {
+            if (panel.classList.contains('open') &&
+                !panel.contains(e.target) &&
+                !openBtn.contains(e.target)) {
+                panel.classList.remove('open');
+            }
+        });
+
+        // ---- ЗАГРУЗКА ТРЕКОВ ----
+        function loadTracks() {
+            trackListEl.innerHTML = '';
+
+            if (trackFiles.length === 0) {
+                trackListEl.innerHTML = `
+                    <div class="empty-tracks">
+                        <i class="fas fa-headphones"></i>
+                        Нет треков в папке music/
+                    </div>
+                `;
+                return;
+            }
+
+            trackFiles.forEach((file, index) => {
+                const displayName = file.replace(/\.mp3$/i, '');
+                const item = document.createElement('div');
+                item.className = 'track-item';
+                item.dataset.index = index;
+
+                item.innerHTML = `
+                    <span class="track-number">${String(index + 1).padStart(2, '0')}</span>
+                    <span class="track-name">${displayName}</span>
+                    <span class="track-status"><i class="fas fa-play"></i></span>
+                `;
+
+                item.addEventListener('click', () => {
+                    playTrack(index);
+                });
+
+                trackListEl.appendChild(item);
+            });
+        }
+
+        // ---- ВОСПРОИЗВЕДЕНИЕ ----
+        function playTrack(index) {
+            const file = trackFiles[index];
+            if (!file) return;
+
+            // Останавливаем текущий
+            if (audio) {
+                audio.pause();
+                audio = null;
+            }
+
+            // Создаём новый
+            audio = new Audio(`music/${file}`);
+            audio.volume = parseFloat(volumeSlider.value);
+            audio.play().catch(e => {
+                console.log('Ошибка воспроизведения:', e);
+                // Если ошибка — пробуем через 2 секунды
+                setTimeout(() => {
+                    audio.play().catch(() => {});
+                }, 2000);
+            });
+
+            isPlaying = true;
+            currentTrackIndex = index;
+            updateUI();
+            vinylDisc.classList.add('spinning');
+
+            // Обновляем кнопку
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+
+            // Показываем название
+            const displayName = file.replace(/\.mp3$/i, '');
+            currentTrackDisplay.textContent = displayName;
+
+            // Подсветка в списке
+            document.querySelectorAll('.track-item').forEach((el, i) => {
+                el.classList.toggle('active', i === index);
+                const status = el.querySelector('.track-status');
+                if (i === index) {
+                    status.innerHTML = '<i class="fas fa-volume-up"></i>';
+                } else {
+                    status.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            });
+
+            // При окончании
+            audio.addEventListener('ended', () => {
+                isPlaying = false;
+                vinylDisc.classList.remove('spinning');
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                document.querySelectorAll('.track-item').forEach(el => {
+                    el.classList.remove('active');
+                    const status = el.querySelector('.track-status');
+                    status.innerHTML = '<i class="fas fa-play"></i>';
+                });
+                currentTrackDisplay.innerHTML = '<span class="placeholder">выберите трек</span>';
+            });
+        }
+
+        // ---- ПАУЗА/ВОСПРОИЗВЕДЕНИЕ ----
+        function togglePlayPause() {
+            if (!audio) {
+                // Если нет аудио — играем первый трек
+                if (trackFiles.length > 0) {
+                    playTrack(0);
+                }
+                return;
+            }
+
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                vinylDisc.classList.remove('spinning');
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                // Обновляем статус в списке
+                document.querySelectorAll('.track-item').forEach((el, i) => {
+                    if (i === currentTrackIndex) {
+                        const status = el.querySelector('.track-status');
+                        status.innerHTML = '<i class="fas fa-pause"></i>';
+                    }
+                });
+            } else {
+                audio.play().catch(e => console.log('Ошибка:', e));
+                isPlaying = true;
+                vinylDisc.classList.add('spinning');
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                document.querySelectorAll('.track-item').forEach((el, i) => {
+                    if (i === currentTrackIndex) {
+                        const status = el.querySelector('.track-status');
+                        status.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    }
+                });
+            }
+        }
+
+        // ---- СЛЕДУЮЩИЙ / ПРЕДЫДУЩИЙ ----
+        function nextTrack() {
+            if (trackFiles.length === 0) return;
+            const nextIndex = (currentTrackIndex + 1) % trackFiles.length;
+            playTrack(nextIndex);
+        }
+
+        function prevTrack() {
+            if (trackFiles.length === 0) return;
+            const prevIndex = (currentTrackIndex - 1 + trackFiles.length) % trackFiles.length;
+            playTrack(prevIndex);
+        }
+
+        // ---- ОБНОВЛЕНИЕ UI ----
+        function updateUI() {
+            // Только обновляем кнопку и диск
+        }
+
+        // ---- ГРОМКОСТЬ ----
+        volumeSlider.addEventListener('input', (e) => {
+            if (audio) {
+                audio.volume = parseFloat(e.target.value);
+            }
+        });
+
+        // ---- КНОПКИ ----
+        playPauseBtn.addEventListener('click', togglePlayPause);
+        nextBtn.addEventListener('click', nextTrack);
+        prevBtn.addEventListener('click', prevTrack);
+
+        // Горячие клавиши (пробел — пауза/плей)
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT') return;
+            if (e.code === 'Space') {
+                e.preventDefault();
+                togglePlayPause();
+            }
+            if (e.code === 'ArrowRight') {
+                e.preventDefault();
+                nextTrack();
+            }
+            if (e.code === 'ArrowLeft') {
+                e.preventDefault();
+                prevTrack();
+            }
+        });
+
+        // ---- ЗАПУСК ----
+        loadTracks();
+
+        // Если есть треки — подгружаем первый (но не играем)
+        if (trackFiles.length > 0) {
+            const firstFile = trackFiles[0];
+            const preloadAudio = new Audio(`music/${firstFile}`);
+            preloadAudio.preload = 'metadata';
+        }
+
+        console.log('🎵 Музыкальный плеер загружен!');
+        console.log('📁 Добавь mp3 в папку music/ и укажи их в массиве trackFiles');
+        console.log('🎹 Горячие клавиши: Пробел (плей/пауза), ← → (пред/след)');
     </script>
 </body>
 </html>
