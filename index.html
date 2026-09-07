@@ -363,7 +363,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Текущий трек */
         .current-track-name {
             color: #d0e2ff;
             font-weight: 600;
@@ -468,7 +467,7 @@
             border: none;
         }
 
-        /* СПИСОК ТРЕКОВ (скролл) */
+        /* СПИСОК ТРЕКОВ */
         .track-list {
             flex: 1;
             overflow-y: auto;
@@ -824,9 +823,9 @@
                 <i class="fas fa-book"></i> Wiki
             </a>
 
-            <!-- OMEGACRAFT — в переходнике -->
-            <a href="https://qwe123zxc0909.github.io/omegacraft.github.io/" target="_blank" class="link-item">
-                <i class="fas fa-cube"></i> OmegaCraft
+            <!-- STAFFBOT/GEARS (вместо OmegaCraft) -->
+            <a href="https://qwe123zxc0909.github.io/Gearssite.github.io/" target="_blank" class="link-item">
+                <i class="fas fa-cogs"></i> STAFFBOT/GEARS
             </a>
 
         </div>
@@ -884,27 +883,27 @@
         // ================================================================
         // МУЗЫКАЛЬНЫЙ ПЛЕЕР
         // ================================================================
-        // ---- СПИСОК ТРЕКОВ (ДОБАВЛЯЙ СВОИ MP3) ----
+        // ---- СПИСОК ТРЕКОВ (ВСЕ ТВОИ 18 ТРЕКОВ) ----
         const trackFiles = [
-    '5opka_MellSher_-_XXL_79340095.mp3',
-    'B小町 ルビー、有馬かな、MEMちょ — Bのリベンジ (www.lightaudio.ru).mp3',
-    'C418_-_Aria_Math_78407789.mp3',
-    'CHANMINA — TEST ME [Oshi no Ko] (www.lightaudio.ru).mp3',
-    'Foxbeard101_-_VERACE_-_Na_bolshom_vozdushnom_share_FULL_GAY_REMIX_77980319 (1).mp3',
-    'Krujella_-_Tampony_79108370.mp3',
-    'Little Big - Go Bananas.mp3',
-    'Los_Del_Rio_-_Macarena_73074770.mp3',
-    'Lvbel_C5_-_COOOK_PARDON_79814892.mp3',
-    'MellSher_5opka_-_Kinoshka_75770701.mp3',
-    'Mia_Boyka_-_JEksponat_81528350.mp3',
-    'Simon_Viklund_-_Tick_Tock_77621636.mp3',
-    'SpotiDownloader.com - Campus - Sven Lindvall.mp3',
-    'YAKOR_-_LYASHKIVKUSNYASHKI_prodby_Kolji_80951208.mp3',
-    'evrogejj_-_My_pidory__79460610.mp3',
-    'natori — Serenade (Oshi no Ko TV-3 ED) (www.lightaudio.ru).mp3',
-    'Наверное Поэт, Якоръ - #СДВГ (hitmos.fm).mp3',
-    '可愛くてごめん_feat._ちゅーたん_CV_早見沙織__HoneyWorks.mp3'
-];
+            '5opka_MellSher_-_XXL_79340095.mp3',
+            'B小町 ルビー、有馬かな、MEMちょ — Bのリベンジ (www.lightaudio.ru).mp3',
+            'C418_-_Aria_Math_78407789.mp3',
+            'CHANMINA — TEST ME [Oshi no Ko] (www.lightaudio.ru).mp3',
+            'Foxbeard101_-_VERACE_-_Na_bolshom_vozdushnom_share_FULL_GAY_REMIX_77980319 (1).mp3',
+            'Krujella_-_Tampony_79108370.mp3',
+            'Little Big - Go Bananas.mp3',
+            'Los_Del_Rio_-_Macarena_73074770.mp3',
+            'Lvbel_C5_-_COOOK_PARDON_79814892.mp3',
+            'MellSher_5opka_-_Kinoshka_75770701.mp3',
+            'Mia_Boyka_-_JEksponat_81528350.mp3',
+            'Simon_Viklund_-_Tick_Tock_77621636.mp3',
+            'SpotiDownloader.com - Campus - Sven Lindvall.mp3',
+            'YAKOR_-_LYASHKIVKUSNYASHKI_prodby_Kolji_80951208.mp3',
+            'evrogejj_-_My_pidory__79460610.mp3',
+            'natori — Serenade (Oshi no Ko TV-3 ED) (www.lightaudio.ru).mp3',
+            'Наверное Поэт, Якоръ - #СДВГ (hitmos.fm).mp3',
+            '可愛くてごめん_feat._ちゅーたん_CV_早見沙織__HoneyWorks.mp3'
+        ];
 
         // ---- ЭЛЕМЕНТЫ ----
         const panel = document.getElementById('musicPanel');
@@ -973,18 +972,15 @@
             const file = trackFiles[index];
             if (!file) return;
 
-            // Останавливаем текущий
             if (audio) {
                 audio.pause();
                 audio = null;
             }
 
-            // Создаём новый
             audio = new Audio(`music/${file}`);
             audio.volume = parseFloat(volumeSlider.value);
             audio.play().catch(e => {
                 console.log('Ошибка воспроизведения:', e);
-                // Если ошибка — пробуем через 2 секунды
                 setTimeout(() => {
                     audio.play().catch(() => {});
                 }, 2000);
@@ -992,17 +988,12 @@
 
             isPlaying = true;
             currentTrackIndex = index;
-            updateUI();
             vinylDisc.classList.add('spinning');
-
-            // Обновляем кнопку
             playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
 
-            // Показываем название
             const displayName = file.replace(/\.mp3$/i, '');
             currentTrackDisplay.textContent = displayName;
 
-            // Подсветка в списке
             document.querySelectorAll('.track-item').forEach((el, i) => {
                 el.classList.toggle('active', i === index);
                 const status = el.querySelector('.track-status');
@@ -1013,7 +1004,6 @@
                 }
             });
 
-            // При окончании
             audio.addEventListener('ended', () => {
                 isPlaying = false;
                 vinylDisc.classList.remove('spinning');
@@ -1030,7 +1020,6 @@
         // ---- ПАУЗА/ВОСПРОИЗВЕДЕНИЕ ----
         function togglePlayPause() {
             if (!audio) {
-                // Если нет аудио — играем первый трек
                 if (trackFiles.length > 0) {
                     playTrack(0);
                 }
@@ -1042,7 +1031,6 @@
                 isPlaying = false;
                 vinylDisc.classList.remove('spinning');
                 playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-                // Обновляем статус в списке
                 document.querySelectorAll('.track-item').forEach((el, i) => {
                     if (i === currentTrackIndex) {
                         const status = el.querySelector('.track-status');
@@ -1076,11 +1064,6 @@
             playTrack(prevIndex);
         }
 
-        // ---- ОБНОВЛЕНИЕ UI ----
-        function updateUI() {
-            // Только обновляем кнопку и диск
-        }
-
         // ---- ГРОМКОСТЬ ----
         volumeSlider.addEventListener('input', (e) => {
             if (audio) {
@@ -1093,7 +1076,7 @@
         nextBtn.addEventListener('click', nextTrack);
         prevBtn.addEventListener('click', prevTrack);
 
-        // Горячие клавиши (пробел — пауза/плей)
+        // Горячие клавиши
         document.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT') return;
             if (e.code === 'Space') {
@@ -1113,7 +1096,6 @@
         // ---- ЗАПУСК ----
         loadTracks();
 
-        // Если есть треки — подгружаем первый (но не играем)
         if (trackFiles.length > 0) {
             const firstFile = trackFiles[0];
             const preloadAudio = new Audio(`music/${firstFile}`);
