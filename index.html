@@ -230,7 +230,7 @@
         }
 
         /* ============================================================ */
-        /* ВЫДВИЖНАЯ ПАНЕЛЬ МУЗЫКИ (справа) */
+        /* ПАНЕЛЬ МУЗЫКИ */
         /* ============================================================ */
         .music-panel {
             position: fixed;
@@ -296,7 +296,6 @@
             color: #b0c8e8;
         }
 
-        /* ===== ПЛАСТИНКА ===== */
         .vinyl-player {
             display: flex;
             flex-direction: column;
@@ -379,7 +378,6 @@
             font-size: 0.85rem;
         }
 
-        /* КНОПКИ УПРАВЛЕНИЯ */
         .player-controls {
             display: flex;
             align-items: center;
@@ -424,7 +422,6 @@
             box-shadow: 0 0 30px rgba(30, 80, 180, 0.1);
         }
 
-        /* ПОЛОСА ГРОМКОСТИ */
         .volume-control {
             display: flex;
             align-items: center;
@@ -467,7 +464,6 @@
             border: none;
         }
 
-        /* СПИСОК ТРЕКОВ */
         .track-list {
             flex: 1;
             overflow-y: auto;
@@ -556,7 +552,7 @@
             opacity: 0.2;
         }
 
-        /* КНОПКА ОТКРЫТИЯ ПАНЕЛИ */
+        /* КНОПКА ОТКРЫТИЯ ПАНЕЛИ МУЗЫКИ */
         .music-toggle-btn {
             position: fixed;
             top: 50%;
@@ -599,10 +595,215 @@
             color: #6a9eff;
         }
 
+        /* ============================================================ */
+        /* ПАНЕЛЬ ВОСПОМИНАНИЙ — ТЕКСТ ПОЛНОСТЬЮ НЕЧИТАЕМ */
+        /* ============================================================ */
+        .memory-panel {
+            position: fixed;
+            bottom: 0;
+            right: -340px;
+            width: 320px;
+            max-height: 70vh;
+            z-index: 1001;
+            background: rgba(11, 13, 16, 0.96);
+            backdrop-filter: blur(24px);
+            border-left: 1px solid rgba(255, 200, 100, 0.06);
+            border-top: 1px solid rgba(255, 200, 100, 0.06);
+            border-radius: 24px 0 0 0;
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+            padding: 1.8rem 1.5rem;
+            box-shadow: -15px 0 60px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .memory-panel.open {
+            right: 0;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .memory-panel .memory-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 200, 100, 0.04);
+            padding-bottom: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .memory-panel .memory-header h3 {
+            color: rgba(255, 200, 100, 0.5);
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .memory-panel .memory-header h3 i {
+            color: rgba(255, 200, 100, 0.3);
+        }
+
+        .memory-panel .memory-close {
+            background: rgba(255, 255, 255, 0.03);
+            border: none;
+            color: #5a7a9e;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        .memory-panel .memory-close:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: #b0c8e8;
+        }
+
+        .memory-content {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-right: 4px;
+        }
+
+        .memory-content::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .memory-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .memory-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 200, 100, 0.1);
+            border-radius: 10px;
+        }
+
+        /* ТЕКСТ ПОЛНОСТЬЮ ПОД БЛЮРОМ — НЕ РАЗОБРАТЬ */
+        .memory-item {
+            background: rgba(255, 200, 100, 0.02);
+            border: 1px solid rgba(255, 200, 100, 0.04);
+            border-radius: 14px;
+            padding: 16px 18px;
+            color: rgba(255, 200, 100, 0.4);
+            font-size: 0.8rem;
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+            transition: 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            filter: blur(6px);  /* ← СИЛЬНОЕ РАЗМЫТИЕ — НЕ ЧИТАЕТСЯ */
+            opacity: 0.4;
+            user-select: none;  /* нельзя выделить текст */
+        }
+
+        .memory-item:hover {
+            filter: blur(4px);  /* ← ПРИ НАВЕДЕНИИ ЧУТЬ ЧЁТЧЕ, НО ВСЁ РАВНО НЕ РАЗОБРАТЬ */
+            opacity: 0.6;
+            border-color: rgba(255, 200, 100, 0.08);
+            background: rgba(255, 200, 100, 0.03);
+        }
+
+        .memory-item .memory-date {
+            display: block;
+            font-size: 0.6rem;
+            color: rgba(255, 200, 100, 0.15);
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .memory-item .memory-text {
+            color: rgba(255, 200, 100, 0.35);
+            font-style: italic;
+            transition: 0.4s ease;
+        }
+
+        .memory-item:hover .memory-text {
+            color: rgba(255, 200, 100, 0.5);
+        }
+
+        .memory-item .memory-glow {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 200, 100, 0.02), transparent 60%);
+            pointer-events: none;
+            animation: memoryPulse 6s ease-in-out infinite;
+        }
+
+        @keyframes memoryPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        .memory-empty {
+            color: rgba(255, 200, 100, 0.08);
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.75rem;
+            font-style: italic;
+        }
+
+        /* КНОПКА ОТКРЫТИЯ ПАНЕЛИ ВОСПОМИНАНИЙ */
+        .memory-toggle-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            background: rgba(11, 13, 16, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 200, 100, 0.06);
+            border-radius: 16px 16px 0 0;
+            padding: 10px 16px;
+            color: rgba(255, 200, 100, 0.3);
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+            writing-mode: horizontal-tb;
+        }
+
+        .memory-toggle-btn i {
+            font-size: 0.9rem;
+            color: rgba(255, 200, 100, 0.25);
+        }
+
+        .memory-toggle-btn:hover {
+            background: rgba(11, 13, 16, 0.9);
+            border-color: rgba(255, 200, 100, 0.12);
+            color: rgba(255, 200, 100, 0.5);
+            padding-bottom: 14px;
+        }
+
+        .memory-toggle-btn:hover i {
+            color: rgba(255, 200, 100, 0.5);
+        }
+
+        /* Кнопка перехода на 2 страницу */
         .secret-btn {
             position: fixed;
             bottom: 20px;
-            right: 20px;
+            right: 150px;
             z-index: 999;
             background: rgba(30, 80, 180, 0.2);
             border: 1px solid rgba(30, 80, 180, 0.3);
@@ -642,13 +843,6 @@
                 font-size: 0.9rem;
                 padding: 0.75rem 1.2rem;
             }
-            .secret-btn {
-                width: 36px;
-                height: 36px;
-                font-size: 0.7rem;
-                bottom: 15px;
-                right: 15px;
-            }
             .music-panel {
                 width: 300px;
                 right: -320px;
@@ -683,6 +877,28 @@
                 height: 48px;
                 font-size: 1.2rem;
             }
+            .memory-panel {
+                width: 280px;
+                right: -300px;
+                padding: 1.2rem 1rem;
+                max-height: 60vh;
+            }
+            .memory-panel.open {
+                right: 0;
+            }
+            .memory-toggle-btn {
+                bottom: 20px;
+                right: 20px;
+                padding: 8px 12px;
+                font-size: 0.55rem;
+            }
+            .secret-btn {
+                bottom: 15px;
+                right: 120px;
+                width: 36px;
+                height: 36px;
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
@@ -699,7 +915,6 @@
             </button>
         </div>
 
-        <!-- ПЛАСТИНКА -->
         <div class="vinyl-player">
             <div class="vinyl-disc" id="vinylDisc">
                 <div class="center-label">
@@ -711,7 +926,6 @@
             </div>
         </div>
 
-        <!-- УПРАВЛЕНИЕ -->
         <div class="player-controls">
             <button id="prevTrack" title="Предыдущий">
                 <i class="fas fa-step-backward"></i>
@@ -724,14 +938,12 @@
             </button>
         </div>
 
-        <!-- ГРОМКОСТЬ -->
         <div class="volume-control">
             <i class="fas fa-volume-down"></i>
             <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
             <i class="fas fa-volume-up"></i>
         </div>
 
-        <!-- СПИСОК ТРЕКОВ -->
         <div class="track-list" id="trackList">
             <div class="empty-tracks">
                 <i class="fas fa-headphones"></i>
@@ -740,9 +952,49 @@
         </div>
     </div>
 
-    <!-- КНОПКА ОТКРЫТИЯ ПАНЕЛИ -->
+    <!-- КНОПКА ОТКРЫТИЯ ПАНЕЛИ МУЗЫКИ -->
     <button class="music-toggle-btn" id="openMusicPanel">
         <i class="fas fa-chevron-left"></i> музыка
+    </button>
+
+    <!-- ============================================================ -->
+    <!-- ПАНЕЛЬ ВОСПОМИНАНИЙ -->
+    <!-- ============================================================ -->
+    <div class="memory-panel" id="memoryPanel">
+        <div class="memory-header">
+            <h3><i class="fas fa-brain"></i> воспоминания</h3>
+            <button class="memory-close" id="closeMemoryPanel">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="memory-content" id="memoryContent">
+            <div class="memory-item">
+                <span class="memory-date">2024 · зима</span>
+                <span class="memory-text">Первый запуск сервера. Ночь, тишина и звук запускающегося мира.</span>
+                <div class="memory-glow"></div>
+            </div>
+            <div class="memory-item">
+                <span class="memory-date">2025 · весна</span>
+                <span class="memory-text">Строительство первого города. Каждый блок — как капля в море.</span>
+                <div class="memory-glow"></div>
+            </div>
+            <div class="memory-item">
+                <span class="memory-date">2025 · лето</span>
+                <span class="memory-text">Первые игроки. Смех в голосовом чате, эхо в пещерах.</span>
+                <div class="memory-glow"></div>
+            </div>
+            <div class="memory-item">
+                <span class="memory-date">2026 · сейчас</span>
+                <span class="memory-text">Всё это — уже воспоминания. Но они живы, пока мы помним.</span>
+                <div class="memory-glow"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- КНОПКА ОТКРЫТИЯ ПАНЕЛИ ВОСПОМИНАНИЙ -->
+    <button class="memory-toggle-btn" id="openMemoryPanel">
+        <i class="fas fa-brain"></i> память
     </button>
 
     <!-- ============================================================ -->
@@ -800,10 +1052,6 @@
 
             <!-- ВТОРОЙ БЛОК — СИНЕ-ЧЁРНЫЙ -->
             <a href="https://t.me/STAFF_STUDIO_official" target="_blank" class="link-item">
-                <i class="fas fa-users"></i> STAFF STUDIO
-            </a>
-
-            <a href="https://t.me/STAFF_STUDIO_official" target="_blank" class="link-item">
                 <i class="fas fa-user-tie"></i> TGK (канал)
             </a>
 
@@ -823,7 +1071,7 @@
                 <i class="fas fa-book"></i> Wiki
             </a>
 
-            <!-- STAFFBOT/GEARS (вместо OmegaCraft) -->
+            <!-- STAFFBOT/GEARS -->
             <a href="https://qwe123zxc0909.github.io/Gearssite.github.io/" target="_blank" class="link-item">
                 <i class="fas fa-cogs"></i> STAFFBOT/GEARS
             </a>
@@ -883,7 +1131,6 @@
         // ================================================================
         // МУЗЫКАЛЬНЫЙ ПЛЕЕР
         // ================================================================
-        // ---- СПИСОК ТРЕКОВ (ВСЕ ТВОИ 18 ТРЕКОВ) ----
         const trackFiles = [
             '5opka_MellSher_-_XXL_79340095.mp3',
             'B小町 ルビー、有馬かな、MEMちょ — Bのリベンジ (www.lightaudio.ru).mp3',
@@ -905,7 +1152,6 @@
             '可愛くてごめん_feat._ちゅーたん_CV_早見沙織__HoneyWorks.mp3'
         ];
 
-        // ---- ЭЛЕМЕНТЫ ----
         const panel = document.getElementById('musicPanel');
         const openBtn = document.getElementById('openMusicPanel');
         const closeBtn = document.getElementById('closeMusicPanel');
@@ -921,7 +1167,6 @@
         let audio = null;
         let isPlaying = false;
 
-        // ---- ОТКРЫТИЕ/ЗАКРЫТИЕ ПАНЕЛИ ----
         openBtn.addEventListener('click', () => panel.classList.add('open'));
         closeBtn.addEventListener('click', () => panel.classList.remove('open'));
 
@@ -933,7 +1178,6 @@
             }
         });
 
-        // ---- ЗАГРУЗКА ТРЕКОВ ----
         function loadTracks() {
             trackListEl.innerHTML = '';
 
@@ -967,7 +1211,6 @@
             });
         }
 
-        // ---- ВОСПРОИЗВЕДЕНИЕ ----
         function playTrack(index) {
             const file = trackFiles[index];
             if (!file) return;
@@ -1017,7 +1260,6 @@
             });
         }
 
-        // ---- ПАУЗА/ВОСПРОИЗВЕДЕНИЕ ----
         function togglePlayPause() {
             if (!audio) {
                 if (trackFiles.length > 0) {
@@ -1051,7 +1293,6 @@
             }
         }
 
-        // ---- СЛЕДУЮЩИЙ / ПРЕДЫДУЩИЙ ----
         function nextTrack() {
             if (trackFiles.length === 0) return;
             const nextIndex = (currentTrackIndex + 1) % trackFiles.length;
@@ -1064,19 +1305,16 @@
             playTrack(prevIndex);
         }
 
-        // ---- ГРОМКОСТЬ ----
         volumeSlider.addEventListener('input', (e) => {
             if (audio) {
                 audio.volume = parseFloat(e.target.value);
             }
         });
 
-        // ---- КНОПКИ ----
         playPauseBtn.addEventListener('click', togglePlayPause);
         nextBtn.addEventListener('click', nextTrack);
         prevBtn.addEventListener('click', prevTrack);
 
-        // Горячие клавиши
         document.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT') return;
             if (e.code === 'Space') {
@@ -1093,7 +1331,6 @@
             }
         });
 
-        // ---- ЗАПУСК ----
         loadTracks();
 
         if (trackFiles.length > 0) {
@@ -1102,9 +1339,33 @@
             preloadAudio.preload = 'metadata';
         }
 
+        // ================================================================
+        // ПАНЕЛЬ ВОСПОМИНАНИЙ
+        // ================================================================
+        const memoryPanel = document.getElementById('memoryPanel');
+        const openMemoryBtn = document.getElementById('openMemoryPanel');
+        const closeMemoryBtn = document.getElementById('closeMemoryPanel');
+
+        openMemoryBtn.addEventListener('click', () => {
+            memoryPanel.classList.add('open');
+        });
+
+        closeMemoryBtn.addEventListener('click', () => {
+            memoryPanel.classList.remove('open');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (memoryPanel.classList.contains('open') &&
+                !memoryPanel.contains(e.target) &&
+                !openMemoryBtn.contains(e.target)) {
+                memoryPanel.classList.remove('open');
+            }
+        });
+
         console.log('🎵 Музыкальный плеер загружен!');
         console.log('📁 Добавь mp3 в папку music/ и укажи их в массиве trackFiles');
         console.log('🎹 Горячие клавиши: Пробел (плей/пауза), ← → (пред/след)');
+        console.log('🧠 Панель воспоминаний готова!');
     </script>
 </body>
 </html>
