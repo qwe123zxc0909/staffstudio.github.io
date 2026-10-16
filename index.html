@@ -8,7 +8,7 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Press+Start+2P&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @property --spin {
@@ -24,6 +24,8 @@
             --text: #d0e2ff;
             --muted: #5a7a9e;
             --spin: 0deg;
+            --pixel: 'Press Start 2P', 'Pixelify Sans', monospace;
+            --pixel-cyr: 'Pixelify Sans', 'Press Start 2P', monospace;
         }
 
         * {
@@ -178,7 +180,6 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             animation: fadeUp 0.8s ease-out backwards, spinBorder 10s linear infinite;
-            will-change: transform, opacity, filter;
         }
 
         .container::before {
@@ -302,12 +303,14 @@
         }
 
         /* ============================================================ */
-        /* БЛОК ~STAFF_STUDIO~ */
+        /* БЛОК ~STAFF_STUDIO~ — ПИКСЕЛЬНЫЙ ЗАГОЛОВОК */
         /* ============================================================ */
         .studio {
-            font-size: 2.1rem;
-            font-weight: 800;
-            letter-spacing: 1px;
+            font-family: var(--pixel);
+            font-size: 1.25rem;
+            font-weight: 400;
+            letter-spacing: 0;
+            line-height: 1.6;
             background: linear-gradient(90deg, #4f9bff, #9b5cff, #00d4ff, #4f9bff);
             background-size: 300% 100%;
             -webkit-background-clip: text;
@@ -322,14 +325,15 @@
         }
 
         .studio small {
-            font-size: 0.75rem;
+            font-family: var(--pixel-cyr);
+            font-size: 0.85rem;
             font-weight: 400;
             color: var(--muted);
             background: none;
             -webkit-background-clip: unset;
             background-clip: unset;
             display: block;
-            margin-top: 4px;
+            margin-top: 10px;
             letter-spacing: 4px;
         }
 
@@ -338,24 +342,27 @@
             height: 2px;
             border-radius: 2px;
             background: linear-gradient(90deg, transparent, #3a7bd5, transparent);
-            margin: 1rem auto 1.2rem;
+            margin: 1.1rem auto 1.3rem;
             animation: fadeUp 0.7s ease-out backwards 0.18s;
         }
 
         /* ============================================================ */
-        /* НИК */
+        /* НИК — ПИКСЕЛЬНЫЙ */
         /* ============================================================ */
         .nick {
-            font-size: 1.9rem;
-            font-weight: 700;
+            font-family: var(--pixel);
+            font-size: 1rem;
+            font-weight: 400;
             color: var(--text);
-            letter-spacing: 0.5px;
+            letter-spacing: 0;
+            line-height: 1.6;
             animation: fadeUp 0.7s ease-out backwards 0.22s;
         }
 
         .sub-nick {
+            font-family: var(--pixel-cyr);
             color: var(--muted);
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             letter-spacing: 3px;
             margin: 0.9rem 0 1.6rem;
             animation: fadeUp 0.7s ease-out backwards 0.26s;
@@ -399,7 +406,8 @@
             border: 1px solid #22334d;
             text-decoration: none;
             color: var(--text);
-            font-weight: 600;
+            font-family: var(--pixel-cyr);
+            font-weight: 500;
             font-size: 0.95rem;
             transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s, background 0.25s;
             position: relative;
@@ -457,7 +465,7 @@
         .link-item .label {
             flex: 1;
             text-align: left;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
         }
 
         .link-item .arrow {
@@ -498,16 +506,17 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .group-divider {
+            font-family: var(--pixel-cyr);
             display: flex;
             align-items: center;
             gap: 12px;
             margin: 0.4rem 0;
             color: #3a5a7a;
-            font-size: 0.65rem;
+            font-size: 0.75rem;
             letter-spacing: 3px;
             font-weight: 500;
         }
@@ -521,7 +530,7 @@
         }
 
         /* ============================================================ */
-        /* БЛОК KEEPTIME — ЖИВАЯ РАМКА */
+        /* БЛОК KEEPTIME — ЖИВАЯ РАМКА + ПИКСЕЛЬНЫЙ ЗАГОЛОВОК */
         /* ============================================================ */
         .keeptime-block {
             position: relative;
@@ -572,9 +581,11 @@
         }
 
         .keeptime-title {
-            font-size: 1.7rem;
-            font-weight: 800;
-            letter-spacing: 1px;
+            font-family: var(--pixel);
+            font-size: 1.05rem;
+            font-weight: 400;
+            letter-spacing: 0;
+            line-height: 1.5;
             background: linear-gradient(135deg, #6ab0ff, #b0d8ff 50%, #7fb3ff);
             -webkit-background-clip: text;
             background-clip: text;
@@ -585,7 +596,8 @@
         }
 
         .keeptime-title i {
-            font-size: 1.4rem;
+            font-family: 'Font Awesome 6 Free';
+            font-size: 1.3rem;
             color: var(--blue-soft);
             filter: drop-shadow(0 0 12px rgba(106, 176, 255, 0.6));
             background: none;
@@ -594,10 +606,11 @@
         }
 
         .keeptime-live {
+            font-family: var(--pixel-cyr);
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.6rem;
+            font-size: 0.7rem;
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -622,16 +635,18 @@
         }
 
         .keeptime-sub {
-            font-size: 0.8rem;
+            font-family: var(--pixel-cyr);
+            font-size: 0.85rem;
             color: rgba(176, 216, 255, 0.6);
             letter-spacing: 3px;
-            margin-top: 8px;
+            margin-top: 10px;
             position: relative;
             z-index: 1;
         }
 
         .keeptime-desc {
-            font-size: 0.78rem;
+            font-family: var(--pixel-cyr);
+            font-size: 0.8rem;
             color: rgba(176, 216, 255, 0.45);
             margin-top: 6px;
             position: relative;
@@ -651,6 +666,7 @@
         }
 
         .keeptime-btn {
+            font-family: var(--pixel-cyr);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -661,7 +677,7 @@
             border: 1px solid rgba(106, 176, 255, 0.25);
             color: #b0d8ff;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             text-decoration: none;
             transition: 0.3s;
             letter-spacing: 1px;
@@ -689,12 +705,13 @@
             color: #fff;
         }
 
-        .keeptime-btn i { font-size: 0.95rem; color: var(--blue-soft); }
+        .keeptime-btn i { font-family: 'Font Awesome 6 Free'; font-size: 0.95rem; color: var(--blue-soft); }
 
         /* ============================================================ */
         /* ФУТЕР */
         /* ============================================================ */
         .footer {
+            font-family: var(--pixel-cyr);
             margin-top: 0;
             padding-top: 1.2rem;
             border-top: 1px solid rgba(79, 142, 255, 0.08);
@@ -703,7 +720,7 @@
             align-items: center;
             gap: 1.2rem;
             color: var(--muted);
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             letter-spacing: 1px;
             animation: fadeUp 0.7s ease-out backwards 0.95s;
         }
@@ -1306,19 +1323,19 @@
 
             .container { padding: 2rem 1.2rem 1.6rem; }
 
-            .studio { font-size: 1.6rem; }
-            .nick { font-size: 1.4rem; }
+            .studio { font-size: 0.85rem; }
+            .nick { font-size: 0.75rem; }
 
             .link-item {
-                font-size: 0.88rem;
+                font-size: 0.85rem;
                 padding: 0.6rem 0.8rem;
                 gap: 10px;
             }
             .link-item .icon { width: 38px; height: 38px; }
             .link-item .icon i { font-size: 1rem; }
 
-            .keeptime-title { font-size: 1.35rem; }
-            .keeptime-title i { font-size: 1.15rem; }
+            .keeptime-title { font-size: 0.8rem; }
+            .keeptime-title i { font-size: 1.05rem; }
             .keeptime-btn { width: 100%; }
 
             .music-panel {
