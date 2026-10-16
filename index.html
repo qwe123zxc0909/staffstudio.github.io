@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0b0d10">
     <title>~STAFF_STUDIO~ | переходник</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -58,9 +58,6 @@
             justify-content: center;
             padding: 2.5rem 1.5rem;
             background: var(--bg);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             overflow-x: hidden;
         }
 
@@ -70,6 +67,21 @@
             inset: 0;
             background: radial-gradient(ellipse at 50% 0%, rgba(11, 13, 16, 0.5), rgba(11, 13, 16, 0.8) 75%);
             z-index: 0;
+        }
+
+        /* ============================================================ */
+        /* ФОНОВЫЕ СЛОИ — ПЛАВНАЯ СМЕНА ОБОЕВ (CROSSFADE) */
+        /* ============================================================ */
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            will-change: opacity;
         }
 
         /* ============================================================ */
@@ -1255,6 +1267,10 @@
 </head>
 <body>
 
+    <!-- ФОНОВЫЕ СЛОИ (плавная смена обоев) -->
+    <div class="bg-layer" id="bgLayer1"></div>
+    <div class="bg-layer" id="bgLayer2"></div>
+
     <!-- ЖИВОЙ ФОН -->
     <div class="aurora">
         <span></span>
@@ -1499,7 +1515,7 @@
 
     <script>
         // ================================================================
-        // ФОН
+        // ФОН — ПЛАВНАЯ СМЕНА ОБОЕВ (CROSSFADE)
         // ================================================================
         const images = [
             'images/0000.png',
@@ -1508,17 +1524,45 @@
             'images/cvhkm1.png',
             'images/fhjkl.png',
             'images/fvhjkl.png',
-            'images/h,.png'
+            'images/h,.png',
+            'images/hist.png'
+        ];
+
+        const bgLayers = [
+            document.getElementById('bgLayer1'),
+            document.getElementById('bgLayer2')
         ];
 
         let currentIndex = 0;
+        let activeLayer = 0;
 
-        function changeBackground() {
-            document.body.style.backgroundImage = `url('${images[currentIndex]}')`;
-            currentIndex = (currentIndex + 1) % images.length;
+        // предзагрузка изображений, чтобы при смене не было мигания
+        images.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+
+        // показать первую картинку сразу
+        function showFirst() {
+            bgLayers[0].style.backgroundImage = `url('${images[0]}')`;
+            bgLayers[0].style.opacity = '1';
         }
 
-        changeBackground();
+        function changeBackground() {
+            currentIndex = (currentIndex + 1) % images.length;
+
+            // следующий (скрытый) слой получает новую картинку
+            const nextLayer = bgLayers[1 - activeLayer];
+            nextLayer.style.backgroundImage = `url('${images[currentIndex]}')`;
+
+            // плавно меняем слои местами
+            nextLayer.style.opacity = '1';
+            bgLayers[activeLayer].style.opacity = '0';
+
+            activeLayer = 1 - activeLayer;
+        }
+
+        showFirst();
         setInterval(changeBackground, 10000);
 
         // ================================================================
