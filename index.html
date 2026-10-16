@@ -190,45 +190,6 @@
         }
 
         /* ============================================================ */
-        /* АВАТАР С ВРАЩАЮЩИМСЯ КОЛЬЦОМ */
-        /* ============================================================ */
-        .avatar-ring {
-            position: relative;
-            width: 96px; height: 96px;
-            margin: 0 auto 1rem;
-            border-radius: 50%;
-            overflow: hidden;
-            animation: fadeUp 0.7s ease-out backwards 0.05s;
-        }
-
-        .avatar-ring::before {
-            content: '';
-            position: absolute;
-            inset: -60%;
-            background: conic-gradient(#4f8eff, #9b5cff, #00d4ff, #4f8eff);
-            animation: rot 5s linear infinite;
-        }
-
-        .avatar-ring .avatar {
-            position: absolute;
-            inset: 3px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 40% 35%, #1a2436, #0d1119);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-        }
-
-        .avatar-ring .avatar i {
-            font-size: 2.4rem;
-            color: var(--blue);
-            filter: drop-shadow(0 0 18px rgba(79, 142, 255, 0.6));
-        }
-
-        @keyframes rot { to { transform: rotate(360deg); } }
-
-        /* ============================================================ */
         /* БЛОК ~STAFF_STUDIO~ */
         /* ============================================================ */
         .studio {
@@ -1233,9 +1194,6 @@
 
             .container { padding: 2rem 1.2rem 1.6rem; }
 
-            .avatar-ring { width: 80px; height: 80px; }
-            .avatar-ring .avatar i { font-size: 2rem; }
-
             .studio { font-size: 1.6rem; }
             .nick { font-size: 1.4rem; }
 
@@ -1407,13 +1365,6 @@
     <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
     <!-- ============================================================ -->
     <div class="container" id="mainContainer">
-
-        <!-- АВАТАР -->
-        <div class="avatar-ring">
-            <div class="avatar">
-                <i class="fas fa-user-astronaut"></i>
-            </div>
-        </div>
 
         <!-- БЛОК ~STAFF_STUDIO~ -->
         <div class="studio">
