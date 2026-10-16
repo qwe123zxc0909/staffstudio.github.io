@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0b0d10">
     <title>~STAFF_STUDIO~ | переходник</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -80,8 +80,12 @@
             background-position: center;
             background-repeat: no-repeat;
             opacity: 0;
-            transition: opacity 2s ease-in-out;
-            will-change: opacity;
+            transition: opacity 2s ease-in-out, transform 1.4s cubic-bezier(0.5, 0, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        body.zooming .bg-layer {
+            transform: scale(1.12);
         }
 
         /* ============================================================ */
@@ -93,6 +97,12 @@
             z-index: 0;
             pointer-events: none;
             overflow: hidden;
+            transition: transform 1.4s cubic-bezier(0.5, 0, 0.3, 1), opacity 0.9s ease;
+        }
+
+        body.zooming .aurora {
+            transform: scale(1.15);
+            opacity: 0.4;
         }
 
         .aurora span {
@@ -168,6 +178,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             animation: fadeUp 0.8s ease-out backwards, spinBorder 10s linear infinite;
+            will-change: transform, opacity, filter;
         }
 
         .container::before {
@@ -186,19 +197,108 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        .container.fade-out-stripes {
-            animation: disappearStripes 1.2s ease forwards;
+        /* ============================================================ */
+        /* ПЕРЕХОД НА 2 СТРАНИЦУ — ВАРП-ПРЫЖОК */
+        /* ============================================================ */
+        .container.leaving {
+            animation: warpOut 1s cubic-bezier(0.55, 0, 0.85, 0.45) forwards;
         }
 
-        @keyframes disappearStripes {
-            0% { opacity: 1; clip-path: inset(0% 0% 0% 0%); transform: scale(1); }
-            15% { opacity: 1; clip-path: inset(0% 0% 90% 0%); }
-            30% { opacity: 1; clip-path: inset(0% 0% 80% 0%); }
-            45% { opacity: 0.9; clip-path: inset(0% 0% 70% 0%); }
-            60% { opacity: 0.7; clip-path: inset(15% 0% 60% 0%); }
-            75% { opacity: 0.5; clip-path: inset(30% 0% 40% 0%); }
-            90% { opacity: 0.2; clip-path: inset(60% 0% 20% 0%); }
-            100% { opacity: 0; clip-path: inset(80% 0% 0% 0%); transform: scale(0.95); }
+        @keyframes warpOut {
+            0% {
+                opacity: 1;
+                transform: perspective(1200px) scale(1) rotateX(0deg);
+                filter: blur(0px);
+            }
+            45% {
+                opacity: 0.95;
+                transform: perspective(1200px) scale(1.06) rotateX(12deg);
+                filter: blur(3px);
+            }
+            100% {
+                opacity: 0;
+                transform: perspective(1200px) scale(1.45) rotateX(50deg) translateY(-80px);
+                filter: blur(22px);
+            }
+        }
+
+        .transition-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            background: radial-gradient(circle at 50% 50%, rgba(30, 60, 120, 0.12), rgba(4, 6, 10, 0.93) 70%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.9s ease;
+            overflow: hidden;
+        }
+
+        .transition-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* световые полосы варпа */
+        .transition-overlay .streak {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 150px;
+            margin-top: -75px;
+            border-radius: 2px;
+            background: linear-gradient(to top, transparent, rgba(106, 176, 255, 0.85), transparent);
+            transform: rotate(var(--a)) translateY(-50px) scaleY(0.3);
+            opacity: 0;
+        }
+
+        .transition-overlay.active .streak {
+            animation: streakFly 0.9s cubic-bezier(0.45, 0, 0.75, 0.5) forwards;
+        }
+
+        @keyframes streakFly {
+            0% {
+                transform: rotate(var(--a)) translateY(-50px) scaleY(0.3);
+                opacity: 0;
+            }
+            25% {
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(var(--a)) translateY(-95vh) scaleY(3.2);
+                opacity: 0;
+            }
+        }
+
+        /* вспышка в центре */
+        .transition-overlay .flash {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(210, 235, 255, 0.95), rgba(106, 176, 255, 0.45) 40%, transparent 70%);
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+        }
+
+        .transition-overlay.active .flash {
+            animation: flashGrow 1s ease-out 0.2s forwards;
+        }
+
+        @keyframes flashGrow {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(35);
+                opacity: 0;
+            }
         }
 
         /* ============================================================ */
@@ -1508,6 +1608,11 @@
 
     </div>
 
+    <!-- ОВЕРЛЕЙ ПЕРЕХОДА (варп) -->
+    <div class="transition-overlay" id="transitionOverlay">
+        <div class="flash"></div>
+    </div>
+
     <!-- КНОПКА ПЕРЕХОДА НА 2 СТРАНИЦУ -->
     <button class="secret-btn" id="goToArchive" title="Перейти в архив">
         <i class="fas fa-archive"></i>
@@ -1566,14 +1671,36 @@
         setInterval(changeBackground, 10000);
 
         // ================================================================
-        // ПЕРЕХОД НА 2 СТРАНИЦУ
+        // ПЕРЕХОД НА 2 СТРАНИЦУ — ВАРП-ПРЫЖОК
         // ================================================================
+        const overlay = document.getElementById('transitionOverlay');
+
+        // создаём световые полосы варпа
+        for (let i = 0; i < 16; i++) {
+            const streak = document.createElement('span');
+            streak.className = 'streak';
+            streak.style.setProperty('--a', Math.round(i * (360 / 16)) + 'deg');
+            streak.style.height = (110 + Math.random() * 110) + 'px';
+            streak.style.marginTop = `-${(110 + Math.random() * 110) / 2}px`;
+            streak.style.animationDelay = (Math.random() * 0.25) + 's';
+            streak.style.animationDuration = (0.7 + Math.random() * 0.4) + 's';
+            overlay.appendChild(streak);
+        }
+
+        let isLeaving = false;
+
         document.getElementById('goToArchive').addEventListener('click', function() {
+            if (isLeaving) return; // защита от двойного клика
+            isLeaving = true;
+
             const container = document.getElementById('mainContainer');
-            container.classList.add('fade-out-stripes');
+            container.classList.add('leaving');
+            overlay.classList.add('active');
+            document.body.classList.add('zooming');
+
             setTimeout(() => {
                 window.location.href = 'page2.html';
-            }, 1200);
+            }, 1100);
         });
 
         // ================================================================
