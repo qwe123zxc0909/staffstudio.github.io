@@ -3,16 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080605">
     <title>~STAFF_STUDIO~ | архив</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📓</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --green: #4ade80;
+            --green-soft: rgba(74, 222, 128, 0.5);
+            --amber: rgba(255, 200, 100, 0.3);
+            --text: #d8e8dc;
+            --muted: rgba(180, 200, 185, 0.4);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        ::selection {
+            background: rgba(74, 222, 128, 0.3);
+            color: #fff;
         }
 
         body {
@@ -21,7 +36,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #0b0d10;
+            background: #080605;
             padding: 1.5rem;
             position: relative;
             overflow: hidden;
@@ -31,13 +46,10 @@
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             z-index: 0;
             pointer-events: none;
-            background: 
+            background:
                 radial-gradient(ellipse at 80% 50%, rgba(200, 50, 30, 0.08), transparent 50%),
                 radial-gradient(ellipse at 20% 50%, rgba(255, 200, 50, 0.06), transparent 50%),
                 radial-gradient(ellipse at 60% 80%, rgba(180, 40, 20, 0.05), transparent 40%),
@@ -56,16 +68,59 @@
         body::after {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(8, 6, 5, 0.6);
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 45%, rgba(8, 6, 5, 0.35), rgba(8, 6, 5, 0.75) 80%);
             z-index: 0;
             pointer-events: none;
         }
 
-        /* ===== КНИГА ===== */
+        /* ===== ЗЕРНО ===== */
+        .noise {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ===== ИСКРЫ (тлеющие частицы) ===== */
+        .embers {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .embers span {
+            position: absolute;
+            bottom: -10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 170, 60, 0.9), rgba(255, 100, 30, 0.4));
+            box-shadow: 0 0 6px rgba(255, 140, 50, 0.6);
+            animation: rise linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+            8% {
+                opacity: 0.7;
+            }
+            60% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(var(--dx), -105vh);
+                opacity: 0;
+            }
+        }
+
+        /* ===== КНИГИ ===== */
         .book-overlay {
             position: fixed;
             z-index: 5;
@@ -76,8 +131,8 @@
         .book-overlay.visible { opacity: 1; }
         .book-icon {
             font-size: 4.5rem;
-            color: rgba(255, 255, 255, 0.15);
-            text-shadow: 0 0 40px rgba(255, 255, 255, 0.05), 0 0 80px rgba(255, 255, 255, 0.02);
+            color: rgba(255, 245, 230, 0.14);
+            text-shadow: 0 0 40px rgba(255, 200, 120, 0.08), 0 0 80px rgba(255, 180, 80, 0.03);
             animation: bookAppear 3s ease-in-out forwards;
             display: block;
         }
@@ -101,15 +156,22 @@
         /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
         .archive-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             text-align: center;
-            padding: 2rem;
             width: 100%;
-            max-width: 500px;
+            max-width: 520px;
+            border-radius: 2rem;
+            padding: 2.6rem 2.2rem 2.2rem;
+            border: 1px solid rgba(74, 222, 128, 0.1);
+            background: linear-gradient(170deg, rgba(22, 20, 16, 0.9), rgba(10, 9, 7, 0.94));
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), inset 0 0 60px rgba(255, 160, 60, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             opacity: 0;
             clip-path: inset(100% 0% 0% 0%);
             transform: scale(0.95);
         }
+
         .archive-content.appear-stripes {
             animation: appearStripes 1.2s ease forwards;
         }
@@ -124,38 +186,100 @@
             100% { opacity: 1; clip-path: inset(0% 0% 0% 0%); transform: scale(1); }
         }
 
+        /* верхняя световая линия на карточке */
+        .archive-content::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 12%;
+            width: 76%; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 190, 100, 0.35), transparent);
+            pointer-events: none;
+        }
+
+        /* ===== МЕТКА ===== */
+        .archive-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--muted);
+            background: rgba(255, 200, 100, 0.03);
+            border: 1px solid rgba(255, 200, 100, 0.07);
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 1.4rem;
+        }
+
+        .archive-tag i {
+            font-size: 0.7rem;
+            color: rgba(255, 200, 100, 0.35);
+        }
+
         /* ===== ПРОЦЕНТЫ 100% ===== */
         .progress-label {
-            font-size: 8rem;
+            font-size: 6.5rem;
             font-weight: 800;
             letter-spacing: 4px;
-            background: linear-gradient(135deg, #4ade80, #22c55e);
+            background: linear-gradient(135deg, #86efac, #22c55e 60%, #15803d);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 60px rgba(74, 222, 128, 0.15);
+            filter: drop-shadow(0 0 40px rgba(74, 222, 128, 0.2));
             line-height: 1;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.4rem;
+            font-variant-numeric: tabular-nums;
+            position: relative;
+        }
+
+        /* глитч на цифрах */
+        .progress-label.glitching {
+            animation: glitch 0.35s steps(2) 1;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translateX(0) skewX(0);
+                text-shadow: none;
+            }
+            20% {
+                transform: translateX(-3px) skewX(-2deg);
+                text-shadow: 3px 0 rgba(255, 80, 60, 0.5), -3px 0 rgba(80, 200, 255, 0.5);
+            }
+            40% {
+                transform: translateX(3px) skewX(2deg);
+                text-shadow: -3px 0 rgba(255, 80, 60, 0.5), 3px 0 rgba(80, 200, 255, 0.5);
+            }
+            60% {
+                transform: translateX(-2px);
+                text-shadow: 2px 0 rgba(255, 80, 60, 0.4), -2px 0 rgba(80, 200, 255, 0.4);
+            }
+            100% {
+                transform: translateX(0) skewX(0);
+                text-shadow: none;
+            }
         }
 
         /* ===== ШКАЛА — 100% ===== */
         .progress-container {
             width: 100%;
             max-width: 400px;
-            margin: 0 auto 1.5rem;
+            margin: 0 auto 1.3rem;
             background: rgba(255, 255, 255, 0.04);
             border-radius: 60px;
             padding: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(74, 222, 128, 0.07);
             box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
         }
         .progress-bar {
-            height: 20px;
-            width: 100%;
+            height: 18px;
+            width: 0%;
             background: linear-gradient(90deg, #4ade80, #22c55e);
             border-radius: 60px;
-            transition: width 1.5s ease;
-            box-shadow: 0 0 30px rgba(74, 222, 128, 0.2);
+            transition: width 2.2s cubic-bezier(0.25, 0.6, 0.3, 1);
+            box-shadow: 0 0 30px rgba(74, 222, 128, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -166,12 +290,42 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
             animation: shimmer 2.5s infinite;
         }
         @keyframes shimmer {
             0% { left: -100%; }
             100% { left: 100%; }
+        }
+
+        /* бейдж статуса */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0.6rem;
+            padding: 5px 14px;
+            border-radius: 20px;
+            background: rgba(74, 222, 128, 0.06);
+            border: 1px solid rgba(74, 222, 128, 0.14);
+            color: var(--green);
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .status-badge .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulseDot 2s ease-out infinite;
+        }
+
+        @keyframes pulseDot {
+            0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.45); }
+            70% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
         }
 
         /* ===== СТРЕЛКА + СТОЛБЕЦ С ПАРОЛЕМ ===== */
@@ -184,18 +338,21 @@
             user-select: none;
         }
         .archive-arrow {
-            font-size: 2.5rem;
+            font-size: 1.6rem;
             color: rgba(74, 222, 128, 0.6);
-            transition: transform 0.4s ease, color 0.3s ease;
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(74, 222, 128, 0.08);
-            background: rgba(74, 222, 128, 0.02);
+            transition: transform 0.4s ease, color 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            border: 1px solid rgba(74, 222, 128, 0.12);
+            background: rgba(74, 222, 128, 0.03);
         }
         .archive-arrow:hover {
-            color: rgba(74, 222, 128, 0.9);
-            border-color: rgba(74, 222, 128, 0.15);
+            color: rgba(74, 222, 128, 0.95);
+            border-color: rgba(74, 222, 128, 0.25);
+            box-shadow: 0 0 25px rgba(74, 222, 128, 0.12);
         }
         .archive-arrow.open { transform: rotate(180deg); }
         .archive-column {
@@ -213,15 +370,21 @@
         }
         .archive-column-inner {
             background: rgba(74, 222, 128, 0.03);
-            border: 1px solid rgba(74, 222, 128, 0.06);
+            border: 1px solid rgba(74, 222, 128, 0.08);
             border-radius: 16px;
             padding: 20px 24px;
             backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .archive-column-inner:hover {
+            border-color: rgba(74, 222, 128, 0.16);
+            box-shadow: 0 0 35px rgba(74, 222, 128, 0.08);
         }
         .archive-column-inner .archive-status {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            color: #4ade80;
+            color: var(--green);
             letter-spacing: 4px;
             display: flex;
             align-items: center;
@@ -229,68 +392,89 @@
             gap: 16px;
             margin: 0;
             text-transform: none;
-            font-family: 'Inter', monospace;
-            text-shadow: 0 0 60px rgba(74, 222, 128, 0.15);
+            text-shadow: 0 0 60px rgba(74, 222, 128, 0.2);
         }
         .archive-column-inner .archive-status i {
             color: rgba(74, 222, 128, 0.5);
-            font-size: 1.8rem;
+            font-size: 1.7rem;
         }
         .archive-column-inner .archive-status .password {
             background: rgba(74, 222, 128, 0.05);
             padding: 4px 20px;
             border-radius: 12px;
-            border: 1px solid rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.12);
             letter-spacing: 6px;
         }
 
         /* ============================================================ */
-        /* ПРОТОКОЛ — STAFFBOT / GEARS / PORTAL / LIBRARY */
+        /* ПРОТОКОЛ */
         /* ============================================================ */
         .protocol-section {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(74, 222, 128, 0.06);
+            margin-top: 1.8rem;
+            padding-top: 1.4rem;
+            border-top: 1px solid rgba(74, 222, 128, 0.07);
         }
 
         .protocol-label {
-            color: rgba(255, 200, 100, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--amber);
             font-size: 0.6rem;
             letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 0.8rem;
-            font-weight: 400;
+            margin-bottom: 0.9rem;
+            font-weight: 500;
+        }
+
+        .protocol-label::before,
+        .protocol-label::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 200, 100, 0.12), transparent);
         }
 
         .protocol-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 6px;
+            gap: 8px;
         }
 
         .protocol-item {
             background: rgba(74, 222, 128, 0.02);
-            border: 1px solid rgba(74, 222, 128, 0.04);
-            border-radius: 8px;
-            padding: 8px 12px;
-            color: rgba(74, 222, 128, 0.3);
+            border: 1px solid rgba(74, 222, 128, 0.05);
+            border-radius: 10px;
+            padding: 10px 12px;
+            color: rgba(74, 222, 128, 0.35);
             font-size: 0.7rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            font-weight: 500;
+            font-weight: 600;
             transition: 0.3s;
             text-align: center;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
         }
 
         .protocol-item:hover {
-            background: rgba(74, 222, 128, 0.04);
-            border-color: rgba(74, 222, 128, 0.08);
-            color: rgba(74, 222, 128, 0.5);
+            background: rgba(74, 222, 128, 0.05);
+            border-color: rgba(74, 222, 128, 0.15);
+            color: rgba(74, 222, 128, 0.75);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(20, 80, 40, 0.25);
         }
 
         .protocol-item .proto-icon {
             margin-right: 6px;
-            opacity: 0.3;
+            opacity: 0.4;
+            transition: 0.3s;
+        }
+
+        .protocol-item:hover .proto-icon {
+            opacity: 1;
+            color: var(--green);
         }
 
         /* ===== КНОПКИ ===== */
@@ -299,22 +483,32 @@
             bottom: 30px;
             left: 30px;
             z-index: 2;
-            color: rgba(180, 150, 120, 0.6);
-            font-size: 0.8rem;
+            color: rgba(200, 170, 140, 0.6);
+            font-size: 0.75rem;
             text-decoration: none;
             transition: 0.3s;
-            letter-spacing: 1px;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 8px 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: rgba(10, 8, 6, 0.6);
+            padding: 10px 18px;
             border-radius: 20px;
-            border: 1px solid rgba(255, 200, 100, 0.04);
-            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 200, 100, 0.08);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
         .back-link:hover {
-            color: rgba(200, 170, 140, 0.8);
-            border-color: rgba(255, 200, 100, 0.08);
+            color: rgba(255, 220, 180, 0.9);
+            border-color: rgba(255, 200, 100, 0.2);
+            box-shadow: 0 0 25px rgba(255, 160, 60, 0.08);
+            transform: translateX(-3px);
         }
-        .back-link i { margin-right: 6px; }
+        .back-link i {
+            margin-right: 8px;
+            transition: 0.3s;
+        }
+        .back-link:hover i {
+            transform: translateX(-3px);
+        }
 
         .secret-link {
             position: fixed;
@@ -357,43 +551,54 @@
             50% { opacity: 0.4; transform: translate(-50%, -50%) scale(1.1); }
         }
         .secret-link:hover + .secret-hint {
-            border-color: rgba(255, 200, 100, 0.06);
+            border-color: rgba(255, 200, 100, 0.08);
         }
         .secret-link:hover + .secret-hint::after {
-            color: rgba(255, 200, 100, 0.06);
+            color: rgba(255, 200, 100, 0.1);
         }
 
         @media (max-width: 600px) {
-            .progress-label { font-size: 5rem; }
-            .archive-arrow { font-size: 2rem; }
-            .archive-column-inner .archive-status { font-size: 1.6rem; letter-spacing: 3px; flex-wrap: wrap; gap: 10px; }
+            body { padding: 1rem; }
+
+            .archive-content { padding: 2rem 1.2rem 1.8rem; }
+
+            .progress-label { font-size: 4.5rem; }
+            .archive-arrow { font-size: 1.3rem; width: 46px; height: 46px; }
+            .archive-column-inner .archive-status { font-size: 1.5rem; letter-spacing: 3px; flex-wrap: wrap; gap: 10px; }
             .archive-column-inner .archive-status .password { letter-spacing: 3px; padding: 2px 12px; }
             .progress-container { max-width: 300px; }
             .secret-link { width: 50px; height: 50px; bottom: 20px; right: 20px; }
             .secret-hint { width: 50px; height: 50px; bottom: 20px; right: 20px; }
+            .back-link { bottom: 20px; left: 20px; padding: 8px 14px; font-size: 0.65rem; }
             .book-icon { font-size: 3rem; }
-            .protocol-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 4px;
-            }
-            .protocol-item {
-                font-size: 0.6rem;
-                padding: 6px 8px;
-                letter-spacing: 1px;
-            }
+            .protocol-grid { gap: 5px; }
+            .protocol-item { font-size: 0.6rem; padding: 8px; letter-spacing: 1px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- КНИГА -->
+    <!-- ЗЕРНО -->
+    <div class="noise"></div>
+
+    <!-- ИСКРЫ -->
+    <div class="embers" id="embers"></div>
+
+    <!-- КНИГИ -->
     <div id="bookContainer"></div>
 
     <div class="archive-content" id="archiveContent">
-        <div class="progress-label">100%</div>
+
+        <div class="archive-tag"><i class="fas fa-folder-open"></i> архив · доступ</div>
+
+        <div class="progress-label" id="percentLabel"><span id="percentNum">0</span>%</div>
+
         <div class="progress-container">
-            <div class="progress-bar"></div>
+            <div class="progress-bar" id="progressBar"></div>
         </div>
+
+        <div class="status-badge"><span class="dot"></span> доступ разрешён</div>
+
         <div class="archive-toggle" id="archiveToggle">
             <div class="archive-arrow" id="archiveArrow">
                 <i class="fas fa-chevron-down"></i>
@@ -412,7 +617,7 @@
         <!-- ПРОТОКОЛ -->
         <!-- ============================================================ -->
         <div class="protocol-section">
-            <div class="protocol-label">╼ протокол ╾</div>
+            <div class="protocol-label">протокол</div>
             <div class="protocol-grid">
                 <div class="protocol-item"><span class="proto-icon">⬡</span> STAFFBOT</div>
                 <div class="protocol-item"><span class="proto-icon">◈</span> GEARS</div>
@@ -426,14 +631,29 @@
         <i class="fas fa-arrow-left"></i> назад
     </a>
 
-    <a href="https://qwe123zxc0909.github.io/Gearssite.github.io/" 
-       class="secret-link" 
-       target="_blank" 
+    <a href="https://qwe123zxc0909.github.io/Gearssite.github.io/"
+       class="secret-link"
+       target="_blank"
        title=" ">
     </a>
     <div class="secret-hint"></div>
 
     <script>
+        // ===== ИСКРЫ =====
+        const embersEl = document.getElementById('embers');
+
+        for (let i = 0; i < 26; i++) {
+            const e = document.createElement('span');
+            const size = 2 + Math.random() * 3;
+            e.style.width = size + 'px';
+            e.style.height = size + 'px';
+            e.style.left = Math.random() * 100 + '%';
+            e.style.setProperty('--dx', (Math.random() * 100 - 50) + 'px');
+            e.style.animationDuration = (7 + Math.random() * 9) + 's';
+            e.style.animationDelay = (Math.random() * 12) + 's';
+            embersEl.appendChild(e);
+        }
+
         // ===== ТОГГЛ СТОЛБЦА =====
         const toggle = document.getElementById('archiveToggle');
         const arrow = document.getElementById('archiveArrow');
@@ -445,13 +665,49 @@
             column.classList.toggle('open');
         });
 
-        // ===== ПОЯВЛЕНИЕ СТРАНИЦЫ =====
+        // ===== ПОЯВЛЕНИЕ СТРАНИЦЫ + СЧЁТЧИК + ШКАЛА =====
         const content = document.getElementById('archiveContent');
+        const percentNum = document.getElementById('percentNum');
+        const percentLabel = document.getElementById('percentLabel');
+        const bar = document.getElementById('progressBar');
+
+        const DURATION = 2200;
+
+        function animateCounter() {
+            const start = performance.now();
+
+            function tick(now) {
+                const t = Math.min((now - start) / DURATION, 1);
+                // easeOutCubic
+                const eased = 1 - Math.pow(1 - t, 3);
+                const val = Math.round(eased * 100);
+                percentNum.textContent = val;
+                bar.style.width = (eased * 100) + '%';
+
+                if (t < 1) {
+                    requestAnimationFrame(tick);
+                } else {
+                    percentNum.textContent = '100';
+                    bar.style.width = '100%';
+                }
+            }
+
+            requestAnimationFrame(tick);
+        }
+
         setTimeout(() => {
             content.classList.add('appear-stripes');
+            // счётчик стартует чуть позже появления
+            setTimeout(animateCounter, 500);
         }, 100);
 
-        // ===== КНИГА =====
+        // ===== ГЛИТЧ НА ЦИФРАХ =====
+        setInterval(() => {
+            percentLabel.classList.add('glitching');
+            setTimeout(() => percentLabel.classList.remove('glitching'), 400);
+        }, 7000);
+
+        // ===== КНИГИ =====
         const bookContainer = document.getElementById('bookContainer');
         const positions = [
             'book-pos-1', 'book-pos-2', 'book-pos-3', 'book-pos-4',
