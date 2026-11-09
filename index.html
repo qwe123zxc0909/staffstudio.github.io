@@ -531,6 +531,204 @@
         }
 
         /* ============================================================ */
+        /* БЛОК ДРУЗЬЯ — ЧЁРНАЯ ТЕМА */
+        /* ============================================================ */
+        .group-divider-black {
+            font-family: var(--pixel-cyr);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0.6rem 0;
+            color: #000000;
+            font-size: 0.78rem;
+            letter-spacing: 3px;
+            font-weight: 700;
+            /* чёрный текст + яркая белая окантовка/свечение, чтобы был виден на тёмном фоне */
+            text-shadow:
+                0 0 1px rgba(255, 255, 255, 0.95),
+                0 0 2px rgba(255, 255, 255, 0.85),
+                0 0 5px rgba(220, 220, 240, 0.7),
+                0 0 12px rgba(160, 160, 190, 0.5),
+                0 0 22px rgba(120, 120, 160, 0.35);
+        }
+
+        /* подложка под сам текст для чёткой читаемости чёрных букв */
+        .group-divider-black .gd-text {
+            background: linear-gradient(135deg, rgba(220, 222, 235, 0.22), rgba(180, 182, 200, 0.14));
+            padding: 4px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(130, 132, 150, 0.3);
+            box-shadow: 0 0 18px rgba(120, 120, 150, 0.18);
+        }
+
+        .group-divider-black::before,
+        .group-divider-black::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #3a3a42, transparent);
+        }
+
+        /* карточка друга — чёрная тема */
+        .friend-item {
+            background: linear-gradient(135deg, rgba(8, 8, 10, 0.85), rgba(0, 0, 0, 0.7));
+            border: 1px solid rgba(60, 60, 70, 0.4);
+            color: #c8c8d0;
+            cursor: pointer;
+        }
+
+        .friend-item.text-link {
+            cursor: pointer;
+        }
+
+        a.friend-item {
+            text-decoration: none;
+        }
+
+        .friend-item:hover {
+            border-color: rgba(120, 120, 130, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 24px rgba(80, 80, 90, 0.15);
+            background: linear-gradient(135deg, rgba(20, 20, 24, 0.9), rgba(8, 8, 10, 0.8));
+            transform: translateY(-3px);
+            color: #ffffff;
+        }
+
+        .friend-item .icon {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .friend-item .icon i {
+            color: #9a9aa6;
+        }
+
+        .friend-item:hover .icon {
+            background: rgba(255, 255, 255, 0.07);
+            transform: scale(1.06) rotate(-4deg);
+        }
+
+        .friend-item:hover .icon i {
+            color: #d8d8e0;
+        }
+
+        .friend-item .label {
+            color: #dadad8;
+        }
+
+        .friend-item:hover .label {
+            color: #ffffff;
+        }
+
+        /* шеврон-стрелка для раскрывающихся карточек */
+        .friend-item .chevron {
+            font-size: 0.8rem;
+            color: #6a6a76;
+            opacity: 1;
+            transform: translateX(0);
+            transition: transform 0.3s ease, color 0.25s;
+            margin-left: auto;
+        }
+
+        .friend-group.open .friend-item .chevron {
+            transform: rotate(90deg);
+            color: #b8b8c4;
+        }
+
+        /* контейнер под-ссылок (плавное раскрытие) */
+        .friend-group {
+            display: block;
+        }
+
+        .friend-sublinks {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.35s ease;
+        }
+
+        .friend-sublinks > .sublinks-inner {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            padding-top: 0;
+            transition: padding-top 0.35s ease;
+        }
+
+        .friend-group.open .friend-sublinks {
+            grid-template-rows: 1fr;
+        }
+
+        .friend-group.open .friend-sublinks > .sublinks-inner {
+            padding-top: 0.4rem;
+        }
+
+        /* под-ссылка внутри раскрытой группы */
+        .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.55);
+            border-radius: 12px;
+            padding: 0.55rem 0.9rem 0.55rem 2.5rem;
+            border: 1px solid rgba(50, 50, 60, 0.3);
+            text-decoration: none;
+            color: #a8a8b4;
+            font-family: var(--pixel-cyr);
+            font-weight: 500;
+            font-size: 0.82rem;
+            transition: transform 0.2s, border-color 0.2s, background 0.2s, color 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sub-link .sub-icon {
+            width: 26px; height: 26px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .sub-link .sub-icon i {
+            font-size: 0.85rem;
+            color: #8a8a96;
+        }
+
+        .sub-link .sub-label {
+            flex: 1;
+            text-align: left;
+            letter-spacing: 0.5px;
+        }
+
+        .sub-link .arrow {
+            font-size: 0.7rem;
+            color: #5a5a66;
+            opacity: 0;
+            transform: translateX(-6px);
+            transition: 0.25s;
+        }
+
+        .sub-link:hover {
+            transform: translateX(4px);
+            border-color: rgba(120, 120, 130, 0.5);
+            background: rgba(15, 15, 18, 0.7);
+            color: #ececf0;
+        }
+
+        .sub-link:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+            color: #b0b0bc;
+        }
+
+        .sub-link:hover .sub-icon i {
+            color: #c0c0cc;
+        }
+
+        /* ============================================================ */
         /* БЛОК KEEPTIME — ЖИВАЯ РАМКА + ПИКСЕЛЬНЫЙ ЗАГОЛОВОК */
         /* ============================================================ */
         .keeptime-block {
@@ -1593,11 +1791,131 @@
                 <i class="fas fa-arrow-right arrow"></i>
             </a>
 
-            <a href="https://qwe123zxc0909.github.io/Dreamcoregears.github.io/" target="_blank" class="link-item">
-                <span class="icon"><i class="fas fa-door-open"></i></span>
-                <span class="label">ДРИМРУМС // АРХИВ</span>
-                <i class="fas fa-arrow-right arrow"></i>
+            <!-- РАЗДЕЛИТЕЛЬ — ДРУЗЬЯ (чёрный) -->
+            <div class="group-divider-black"><span class="gd-text">✦ друзья ✦</span></div>
+
+            <!-- Wested_Mas — одна ссылка, без стрелки -->
+            <a href="https://t.me/westedmas" target="_blank" class="link-item friend-item">
+                <span class="icon"><i class="fab fa-telegram"></i></span>
+                <span class="label">Wested_Mas</span>
             </a>
+
+            <!-- Tina_Chan — несколько ссылок, раскрывается -->
+            <div class="friend-group">
+                <div class="link-item friend-item" data-toggle="friend">
+                    <span class="icon"><i class="fas fa-user"></i></span>
+                    <span class="label">Tina_Chan</span>
+                    <i class="fas fa-chevron-right chevron"></i>
+                </div>
+                <div class="friend-sublinks"><div class="sublinks-inner">
+                    <a href="https://t.me/makarunchikchan" target="_blank" class="sub-link">
+                        <span class="sub-icon"><i class="fab fa-telegram"></i></span>
+                        <span class="sub-label">Telegram</span>
+                        <i class="fas fa-arrow-right arrow"></i>
+                    </a>
+                    <a href="https://vk.com/monarxist01" target="_blank" class="sub-link">
+                        <span class="sub-icon"><i class="fab fa-vk"></i></span>
+                        <span class="sub-label">VK</span>
+                        <i class="fas fa-arrow-right arrow"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@Tina_CHAN011" target="_blank" class="sub-link">
+                        <span class="sub-icon"><i class="fab fa-youtube"></i></span>
+                        <span class="sub-label">YouTube</span>
+                        <i class="fas fa-arrow-right arrow"></i>
+                    </a>
+                </div></div>
+            </div>
+
+            <!-- Kirisha — одна ссылка, без стрелки -->
+            <a href="https://t.me/kirishaaa_7" target="_blank" class="link-item friend-item">
+                <span class="icon"><i class="fab fa-telegram"></i></span>
+                <span class="label">Kirisha</span>
+            </a>
+
+            <!-- Demenca — несколько ссылок, раскрывается -->
+            <div class="friend-group">
+                <div class="link-item friend-item" data-toggle="friend">
+                    <span class="icon"><i class="fas fa-user"></i></span>
+                    <span class="label">Demenca</span>
+                    <i class="fas fa-chevron-right chevron"></i>
+                </div>
+                <div class="friend-sublinks"><div class="sublinks-inner">
+                    <a href="https://t.me/demensa777" target="_blank" class="sub-link">
+                        <span class="sub-icon"><i class="fab fa-telegram"></i></span>
+                        <span class="sub-label">Telegram</span>
+                        <i class="fas fa-arrow-right arrow"></i>
+                    </a>
+                    <a href="https://www.twitch.tv/demensa777" target="_blank" class="sub-link">
+                        <span class="sub-icon"><i class="fab fa-twitch"></i></span>
+                        <span class="sub-label">Twitch</span>
+                        <i class="fas fa-arrow-right arrow"></i>
+                    </a>
+                </div></div>
+            </div>
+
+            <!-- MrDebug — несколько ссылок, раскрывается -->
+            <div class="friend-group">
+                <div class="link-item friend-item" data-toggle="friend">
+                    <span class="icon"><i class="fas fa-user"></i></span>
+                    <span class="label">MrDebug</span>
+                    <i class="fas fa-chevron-right chevron"></i>
+                </div>
+                <div class="friend-sublinks"><div class="sublinks-inner">
+                    <a href="https://mrdebug-ost.shop" target="_blank" class="sub-link">
+                        <span class="sub-icon"><i class="fas fa-globe"></i></span>
+                        <span class="sub-label">Магазин</span>
+                        <i class="fas fa-arrow-right arrow"></i>
+                    </a>
+                    <a href="https://t.me/DebugsRoom" target="_blank" class="sub-link">
+                        <span class="sub-icon"><i class="fab fa-telegram"></i></span>
+                        <span class="sub-label">Telegram</span>
+                        <i class="fas fa-arrow-right arrow"></i>
+                    </a>
+                </div></div>
+            </div>
+
+            <!-- Gears_404 — одна ссылка, без стрелки -->
+            <a href="https://t.me/Gears_404_sam" target="_blank" class="link-item friend-item">
+                <span class="icon"><i class="fab fa-telegram"></i></span>
+                <span class="label">Gears_404</span>
+            </a>
+
+            <!-- _AVEEL_ — одна ссылка, без стрелки -->
+            <a href="https://t.me/kystarnikShAveela" target="_blank" class="link-item friend-item">
+                <span class="icon"><i class="fab fa-telegram"></i></span>
+                <span class="label">_AVEEL_</span>
+            </a>
+
+            <!-- Eniz — несколько ссылок, раскрывается -->
+            <div class="friend-group">
+                <div class="link-item friend-item" data-toggle="friend">
+                    <span class="icon"><i class="fas fa-user"></i></span>
+                    <span class="label">Eniz</span>
+                    <i class="fas fa-chevron-right chevron"></i>
+                </div>
+                <div class="friend-sublinks"><div class="sublinks-inner">
+                    <a href="https://t.me/eniz_zip" target="_blank" class="sub-link">
+                        <span class="sub-icon"><i class="fab fa-telegram"></i></span>
+                        <span class="sub-label">Telegram</span>
+                        <i class="fas fa-arrow-right arrow"></i>
+                    </a>
+                    <a href="https://www.twitch.tv/eniz_s" target="_blank" class="sub-link">
+                        <span class="sub-icon"><i class="fab fa-twitch"></i></span>
+                        <span class="sub-label">Twitch</span>
+                        <i class="fas fa-arrow-right arrow"></i>
+                    </a>
+                    <a href="https://youtube.com/@enizs" target="_blank" class="sub-link">
+                        <span class="sub-icon"><i class="fab fa-youtube"></i></span>
+                        <span class="sub-label">YouTube · @enizs</span>
+                        <i class="fas fa-arrow-right arrow"></i>
+                    </a>
+                    <a href="https://youtube.com/@sti_animation" target="_blank" class="sub-link">
+                        <span class="sub-icon"><i class="fab fa-youtube"></i></span>
+                        <span class="sub-label">YouTube · @sti_animation</span>
+                        <i class="fas fa-arrow-right arrow"></i>
+                    </a>
+                </div></div>
+            </div>
 
         </div>
 
@@ -1994,6 +2312,18 @@
                 !openMemoryBtn.contains(e.target)) {
                 memoryPanel.classList.remove('open');
             }
+        });
+
+        // ================================================================
+        // РАСКРЫТИЕ ГРУПП ДРУЗЕЙ
+        // ================================================================
+        document.querySelectorAll('.friend-group [data-toggle="friend"]').forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                // игнор клики по вложенным ссылкам внутри раскрытой группы
+                if (e.target.closest('.sub-link')) return;
+                const group = trigger.closest('.friend-group');
+                group.classList.toggle('open');
+            });
         });
     </script>
 </body>
