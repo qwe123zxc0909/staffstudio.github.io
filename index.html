@@ -1421,34 +1421,51 @@
             transition: 0.4s ease;
             position: relative;
             overflow: hidden;
-            filter: blur(6px);
-            opacity: 0.4;
-            user-select: none;
+            opacity: 1;
+            user-select: text;
         }
 
         .memory-item:hover {
-            filter: blur(3px);
-            opacity: 0.65;
-            border-color: rgba(255, 200, 100, 0.1);
-            background: rgba(255, 200, 100, 0.03);
+            opacity: 1;
+            border-color: rgba(255, 200, 100, 0.18);
+            background: rgba(255, 200, 100, 0.04);
+            box-shadow: 0 0 25px rgba(255, 200, 100, 0.08);
         }
 
         .memory-item .memory-date {
             display: block;
             font-size: 0.6rem;
-            color: rgba(255, 200, 100, 0.18);
+            color: rgba(255, 200, 100, 0.4);
             letter-spacing: 1px;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
             text-transform: uppercase;
         }
 
         .memory-item .memory-text {
-            color: rgba(255, 200, 100, 0.35);
+            color: rgba(255, 200, 100, 0.7);
             font-style: italic;
             transition: 0.4s ease;
         }
 
-        .memory-item:hover .memory-text { color: rgba(255, 200, 100, 0.55); }
+        .memory-item:hover .memory-text { color: rgba(255, 200, 100, 0.9); }
+
+        /* диалоговые строки */
+        .memory-item .dlg-line {
+            margin: 4px 0;
+            line-height: 1.55;
+            color: rgba(255, 210, 130, 0.78);
+        }
+
+        .memory-item .dlg-speaker {
+            display: inline-block;
+            min-width: 70px;
+            color: rgba(255, 220, 150, 0.95);
+            font-weight: 600;
+            font-style: normal;
+            margin-right: 6px;
+        }
+
+        .memory-item:hover .dlg-line { color: rgba(255, 220, 150, 0.92); }
 
         .memory-toggle-btn {
             position: fixed;
@@ -1670,20 +1687,24 @@
 
         <div class="memory-content" id="memoryContent">
             <div class="memory-item">
-                <span class="memory-date">2024 · зима</span>
-                <span class="memory-text">Первый запуск сервера. Ночь, тишина и звук запускающегося мира.</span>
+                <span class="memory-date">фрагмент · 01</span>
+                <div class="memory-text">
+                    <p class="dlg-line"><span class="dlg-speaker">Кволт:</span>БЛЯТЬ! ГДЕ ТЕПЕРЬ МНЕ КОСУ ИСКАТЬ?!</p>
+                    <p class="dlg-line"><span class="dlg-speaker">Евклид:</span>Ну найдёшь. В библиотеке только книгу найти.</p>
+                    <p class="dlg-line"><span class="dlg-speaker">Кволт:</span>Ты не помнишь, как мы расфасовывали?</p>
+                    <p class="dlg-line"><span class="dlg-speaker">Евклид:</span>А...</p>
+                    <p class="dlg-line"><span class="dlg-speaker">Евклид:</span>Сначала вырвем из него разлом, а потом уже определим.</p>
+                    <p class="dlg-line"><span class="dlg-speaker">Кволт:</span>Согласен.</p>
+                </div>
             </div>
             <div class="memory-item">
-                <span class="memory-date">2025 · весна</span>
-                <span class="memory-text">Строительство первого города. Каждый блок — как капля в море.</span>
-            </div>
-            <div class="memory-item">
-                <span class="memory-date">2025 · лето</span>
-                <span class="memory-text">Первые игроки. Смех в голосовом чате, эхо в пещерах.</span>
-            </div>
-            <div class="memory-item">
-                <span class="memory-date">2026 · сейчас</span>
-                <span class="memory-text">Всё это — уже воспоминания. Но они живы, пока мы помним.</span>
+                <span class="memory-date">фрагмент · 02</span>
+                <div class="memory-text">
+                    <p class="dlg-line"><span class="dlg-speaker">Хистер:</span>Всё ещё слышу...</p>
+                    <p class="dlg-line"><span class="dlg-speaker">Хистер:</span>Только не пойму из за чего...</p>
+                    <p class="dlg-line"><span class="dlg-speaker">Хистер:</span>ЧТО ЭТО БЛЯТЬ ТАКОЕ?!</p>
+                    <p class="dlg-line"><span class="dlg-speaker">Хистер:</span>Вот чёрт... Шанс сбежать был...</p>
+                </div>
             </div>
         </div>
     </div>
