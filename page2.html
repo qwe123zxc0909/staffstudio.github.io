@@ -84,6 +84,60 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
+        /* ===== СКАНЛАЙНЫ (загадочная ретро-атмосфера) ===== */
+        .scanlines {
+            position: fixed;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent 0,
+                transparent 2px,
+                rgba(0, 0, 0, 0.18) 3px,
+                transparent 4px
+            );
+            opacity: 0.5;
+            mix-blend-mode: multiply;
+        }
+
+        /* ===== ВИНЬЕТКА — ДЫХАНИЕ ===== */
+        .vignette {
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(0, 0, 0, 0.6) 100%);
+            animation: breathe 7s ease-in-out infinite;
+        }
+        @keyframes breathe {
+            0%, 100% { opacity: 0.55; }
+            50% { opacity: 0.85; }
+        }
+
+        /* ===== ШЁПОТ (криптические фразы) ===== */
+        .whisper {
+            position: fixed;
+            z-index: 4;
+            pointer-events: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 5px;
+            text-transform: lowercase;
+            color: rgba(74, 222, 128, 0.16);
+            text-shadow: 0 0 12px rgba(74, 222, 128, 0.18);
+            opacity: 0;
+            transition: opacity 2s ease;
+            white-space: nowrap;
+            font-style: italic;
+        }
+        .whisper.show { opacity: 1; }
+        .whisper.w1 { top: 8%; left: 4%; }
+        .whisper.w2 { top: 14%; right: 5%; }
+        .whisper.w3 { bottom: 12%; left: 6%; }
+        .whisper.w4 { bottom: 18%; right: 4%; }
+        .whisper.w5 { top: 46%; left: 2%; writing-mode: vertical-rl; letter-spacing: 8px; }
+
         /* ===== ИСКРЫ (тлеющие частицы) ===== */
         .embers {
             position: fixed;
@@ -477,7 +531,122 @@
             color: var(--green);
         }
 
-        /* ===== КНОПКИ ===== */
+        /* ============================================================ */
+        /* ВРАТА — 2 КНОПКИ-ПОРТАЛА */
+        /* ============================================================ */
+        .gates-section {
+            margin-top: 1.6rem;
+            padding-top: 1.4rem;
+            border-top: 1px solid rgba(74, 222, 128, 0.07);
+        }
+
+        .gates-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--amber);
+            font-size: 0.6rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .gates-label::before,
+        .gates-label::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 200, 100, 0.12), transparent);
+        }
+
+        .gates-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .gate {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 1.4rem 0.8rem 1.2rem;
+            text-decoration: none;
+            color: rgba(74, 222, 128, 0.55);
+            background: rgba(8, 12, 9, 0.7);
+            border: 1px solid rgba(74, 222, 128, 0.12);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+        }
+
+        .gate::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 60%; height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(74, 222, 128, 0.5), transparent);
+            opacity: 0.5;
+            transition: opacity 0.3s ease, width 0.3s ease;
+        }
+
+        .gate::after {
+            /* мерцающий блик */
+            content: '';
+            position: absolute;
+            top: -100%; left: -50%;
+            width: 200%; height: 100%;
+            background: linear-gradient(105deg, transparent 40%, rgba(74, 222, 128, 0.12) 50%, transparent 60%);
+            transform: skewX(-20deg);
+            transition: top 0.7s ease;
+            pointer-events: none;
+        }
+
+        .gate:hover {
+            transform: translateY(-4px);
+            border-color: rgba(74, 222, 128, 0.4);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(74, 222, 128, 0.18);
+            color: rgba(180, 240, 200, 0.95);
+        }
+
+        .gate:hover::before { opacity: 1; width: 80%; }
+        .gate:hover::after { top: 100%; }
+
+        .gate .gate-glyph {
+            font-size: 1.6rem;
+            color: rgba(74, 222, 128, 0.7);
+            text-shadow: 0 0 18px rgba(74, 222, 128, 0.4);
+            transition: transform 0.4s ease, color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            line-height: 1;
+        }
+
+        .gate:hover .gate-glyph {
+            transform: scale(1.12) rotate(180deg);
+            color: rgba(160, 250, 200, 1);
+        }
+
+        .gate .gate-name {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .gate .gate-sub {
+            font-size: 0.55rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(180, 200, 185, 0.3);
+            font-style: italic;
+        }
+
+        /* ===== КНОПКА НАЗАД ===== */
         .back-link {
             position: fixed;
             bottom: 30px;
@@ -510,51 +679,30 @@
             transform: translateX(-3px);
         }
 
-        .secret-link {
+        /* ===== МИГАЮЩИЙ СИМВОЛ В УГЛУ (загадочный знак) ===== */
+        .sigil {
             position: fixed;
             bottom: 30px;
             right: 30px;
             z-index: 2;
-            display: block;
-            width: 60px;
-            height: 60px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            opacity: 0;
-            pointer-events: auto;
-        }
-        .secret-hint {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1;
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            border: 1px dashed rgba(255, 200, 100, 0.02);
-            pointer-events: none;
-            transition: 0.4s;
-        }
-        .secret-hint::after {
-            content: '⬡';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: rgba(255, 200, 100, 0.015);
+            border: 1px solid rgba(74, 222, 128, 0.1);
+            background: rgba(8, 12, 9, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(74, 222, 128, 0.25);
             font-size: 1.2rem;
-            animation: pulseHint 4s infinite;
+            animation: sigilPulse 5s ease-in-out infinite;
+            pointer-events: none;
         }
-        @keyframes pulseHint {
-            0%, 100% { opacity: 0.15; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 0.4; transform: translate(-50%, -50%) scale(1.1); }
-        }
-        .secret-link:hover + .secret-hint {
-            border-color: rgba(255, 200, 100, 0.08);
-        }
-        .secret-link:hover + .secret-hint::after {
-            color: rgba(255, 200, 100, 0.1);
+        @keyframes sigilPulse {
+            0%, 100% { opacity: 0.3; box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+            50% { opacity: 0.7; box-shadow: 0 0 25px rgba(74, 222, 128, 0.15); }
         }
 
         @media (max-width: 600px) {
@@ -567,12 +715,18 @@
             .archive-column-inner .archive-status { font-size: 1.5rem; letter-spacing: 3px; flex-wrap: wrap; gap: 10px; }
             .archive-column-inner .archive-status .password { letter-spacing: 3px; padding: 2px 12px; }
             .progress-container { max-width: 300px; }
-            .secret-link { width: 50px; height: 50px; bottom: 20px; right: 20px; }
-            .secret-hint { width: 50px; height: 50px; bottom: 20px; right: 20px; }
             .back-link { bottom: 20px; left: 20px; padding: 8px 14px; font-size: 0.65rem; }
+            .sigil { width: 50px; height: 50px; bottom: 20px; right: 20px; font-size: 1rem; }
             .book-icon { font-size: 3rem; }
             .protocol-grid { gap: 5px; }
             .protocol-item { font-size: 0.6rem; padding: 8px; letter-spacing: 1px; }
+            .gates-grid { gap: 8px; }
+            .gate { padding: 1.1rem 0.5rem 1rem; }
+            .gate .gate-glyph { font-size: 1.35rem; }
+            .gate .gate-name { font-size: 0.62rem; letter-spacing: 2px; }
+            .gate .gate-sub { font-size: 0.5rem; }
+            .whisper { font-size: 0.6rem; letter-spacing: 3px; }
+            .whisper.w5 { display: none; }
         }
     </style>
 </head>
@@ -580,6 +734,19 @@
 
     <!-- ЗЕРНО -->
     <div class="noise"></div>
+
+    <!-- СКАНЛАЙНЫ -->
+    <div class="scanlines"></div>
+
+    <!-- ВИНЬЕТКА -->
+    <div class="vignette"></div>
+
+    <!-- ШЁПОТ (криптические фразы по краям) -->
+    <div class="whisper w1" data-rotate="...помнишь...|...не здесь...|...тише...">...помнишь...</div>
+    <div class="whisper w2" data-rotate="...вход открыт...|...он ждёт...|...шагни...">...вход открыт...</div>
+    <div class="whisper w3" data-rotate="...не оборачивайся...|...ещё рано...|...01010...">...не оборачивайся...</div>
+    <div class="whisper w4" data-rotate="...архив помнит...|...всё записано...|...null...">...архив помнит...</div>
+    <div class="whisper w5" data-rotate="...errno:lost...|...signal...|...keeper...">...errno:lost...</div>
 
     <!-- ИСКРЫ -->
     <div class="embers" id="embers"></div>
@@ -625,18 +792,33 @@
                 <div class="protocol-item"><span class="proto-icon">☰</span> LIBRARY</div>
             </div>
         </div>
+
+        <!-- ============================================================ -->
+        <!-- ВРАТА — 2 КНОПКИ-ПОРТАЛА -->
+        <!-- ============================================================ -->
+        <div class="gates-section">
+            <div class="gates-label">врата</div>
+            <div class="gates-grid">
+                <a href="https://qwe123zxc0909.github.io/Gearssite.github.io/" target="_blank" class="gate">
+                    <span class="gate-glyph">◈</span>
+                    <span class="gate-name">GEARS</span>
+                    <span class="gate-sub">вход</span>
+                </a>
+                <a href="https://qwe123zxc0909.github.io/Dreamcoregears.github.io/" target="_blank" class="gate">
+                    <span class="gate-glyph">◉</span>
+                    <span class="gate-name">DREAMCORE</span>
+                    <span class="gate-sub">архив</span>
+                </a>
+            </div>
+        </div>
     </div>
 
     <a href="index.html" class="back-link">
         <i class="fas fa-arrow-left"></i> назад
     </a>
 
-    <a href="https://qwe123zxc0909.github.io/Gearssite.github.io/"
-       class="secret-link"
-       target="_blank"
-       title=" ">
-    </a>
-    <div class="secret-hint"></div>
+    <!-- загадочный символ в углу -->
+    <div class="sigil">⬡</div>
 
     <script>
         // ===== ИСКРЫ =====
@@ -740,6 +922,27 @@
             showBook();
             setInterval(showBook, 10000);
         }, 1500);
+
+        // ===== ШЁПОТ — ротация криптических фраз =====
+        document.querySelectorAll('.whisper').forEach(el => {
+            const phrases = (el.dataset.rotate || '').split('|').map(s => s.trim()).filter(Boolean);
+            if (phrases.length <= 1) return;
+            let idx = 0;
+            setInterval(() => {
+                el.classList.remove('show');
+                setTimeout(() => {
+                    idx = (idx + 1) % phrases.length;
+                    el.textContent = phrases[idx];
+                    el.classList.add('show');
+                }, 2000);
+            }, 6000 + Math.random() * 3000);
+        });
+
+        // первый показ шёпота (по очереди)
+        const whispers = Array.from(document.querySelectorAll('.whisper'));
+        whispers.forEach((w, i) => {
+            setTimeout(() => w.classList.add('show'), 2500 + i * 900);
+        });
     </script>
 </body>
 </html>
