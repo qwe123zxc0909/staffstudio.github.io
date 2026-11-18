@@ -2,8 +2,11 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <meta name="theme-color" content="#0b0d10">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
     <title>~STAFF_STUDIO~ | переходник</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,12 +58,21 @@
         body {
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
+            min-height: 100dvh; /* dynamic viewport для мобильных (без адресной строки) */
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 2.5rem 1.5rem;
             background: var(--bg);
             overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent; /* убираем синюю вспышку при тапе на iOS/Android */
+            -webkit-touch-callout: none; /* убираем контекстное меню при долгом тапе */
+            overscroll-behavior: none; /* убираем «резиновый» скролл iOS */
+            text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+            /* аппаратное ускорение для плавности */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body::before {
@@ -1535,7 +1547,7 @@
         }
 
         @media (max-width: 500px) {
-            body { padding: 1.5rem 1rem; }
+            body { padding: 1.5rem 1rem 5rem; } /* снизу больше места под плавающие кнопки */
 
             .container { padding: 2rem 1.2rem 1.6rem; }
 
@@ -1555,18 +1567,27 @@
             .keeptime-btn { width: 100%; }
 
             .music-panel {
-                width: 300px;
-                right: -320px;
-                padding: 1.5rem 1.2rem;
+                width: calc(100vw - 24px);
+                max-width: 340px;
+                right: -360px;
+                padding: 1.4rem 1.1rem;
+                border-radius: 24px 0 0 24px;
             }
             .music-panel.open { right: 0; }
 
             .music-toggle-btn {
-                padding: 10px 6px 10px 10px;
+                padding: 8px 10px;
                 font-size: 0.55rem;
                 letter-spacing: 2px;
+                /* на мобильном делаем компактной, по верхнему правому краю */
+                top: 12px;
+                right: 12px;
+                transform: none;
+                writing-mode: horizontal-tb;
+                border-radius: 16px;
+                border: 1px solid rgba(79, 142, 255, 0.18);
             }
-            .music-toggle-btn i { font-size: 1rem; }
+            .music-toggle-btn i { font-size: 0.9rem; }
 
             .vinyl-disc { width: 110px; height: 110px; }
             .vinyl-disc .center-label { width: 32px; height: 32px; }
@@ -1575,25 +1596,190 @@
             .player-controls button.play-btn { width: 48px; height: 48px; font-size: 1.2rem; }
 
             .memory-panel {
-                width: 280px;
-                right: -300px;
+                width: calc(100vw - 24px);
+                max-width: 320px;
+                right: -340px;
                 padding: 1.2rem 1rem;
-                max-height: 60vh;
+                max-height: 70vh;
             }
             .memory-panel.open { right: 0; }
 
             .memory-toggle-btn {
-                bottom: 20px;
-                right: 20px;
-                padding: 8px 12px;
-                font-size: 0.55rem;
+                bottom: 14px;
+                right: 14px;
+                padding: 7px 11px;
+                font-size: 0.5rem;
+                letter-spacing: 1.5px;
+                border-radius: 14px;
             }
+            .memory-toggle-btn i { font-size: 0.8rem; }
 
             .secret-btn {
-                bottom: 15px;
-                right: 120px;
-                width: 36px; height: 36px;
+                bottom: 14px;
+                right: 110px;
+                width: 34px; height: 34px;
                 font-size: 0.7rem;
+            }
+        }
+
+        /* ============================================================ */
+        /* ОПТИМИЗАЦИЯ ДЛЯ МОБИЛЬНЫХ И СЛАБЫХ УСТРОЙСТВ */
+        /* ============================================================ */
+
+        /* Тач-устройства: убираем hover-эффекты с transform (лагают) */
+        @media (hover: none) {
+            .link-item:hover,
+            .friend-item:hover,
+            .sub-link:hover,
+            .keeptime-btn:hover,
+            .gate:hover {
+                transform: none !important;
+            }
+            .link-item:hover::after,
+            .gate:hover::after,
+            .keeptime-btn:hover::after {
+                left: -100% !important;
+            }
+            /* на тач-устройствах карточки не приподнимаются */
+            .link-item:hover {
+                border-color: rgba(79, 142, 255, 0.3) !important;
+                box-shadow: 0 4px 12px rgba(0, 40, 100, 0.25) !important;
+            }
+        }
+
+        /* Узкие экраны (телефоны в портретной ориентации) */
+        @media (max-width: 600px) {
+            /* отключаем самую тяжёлую анимацию — вращающуюся conic-рамку контейнера */
+            .container {
+                animation: fadeUp 0.8s ease-out backwards !important;
+                border-image: none;
+                border: 1px solid rgba(79, 142, 255, 0.25);
+                background: linear-gradient(170deg, rgba(20, 26, 38, 0.92), rgba(12, 15, 23, 0.95)) padding-box !important;
+            }
+
+            /* убираем blur у aurora-блобов, делаем их статичными и слабыми */
+            .aurora span {
+                filter: blur(60px);
+                animation: none !important;
+                opacity: 0.5;
+            }
+            .aurora span:nth-child(1) {
+                transform: translate(40px, 30px) scale(1);
+            }
+            .aurora span:nth-child(2) {
+                transform: translate(-30px, -20px) scale(1);
+            }
+            .aurora span:nth-child(3) {
+                transform: translate(25px, -30px) scale(1);
+            }
+
+            /* отключаем вращающийся conic-градиент у keeptime-block */
+            .keeptime-block::before {
+                animation: none !important;
+                opacity: 0.3;
+                background: linear-gradient(135deg, rgba(80, 160, 255, 0.2), transparent 60%) !important;
+            }
+
+            /* упрощаем backdrop-filter на панелях */
+            .music-panel,
+            .memory-panel {
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+
+            /* noise-слой: почти невидимый, не пересчитывается */
+            .noise { opacity: 0.02; }
+
+            /* группировка transition только нужных свойств */
+            .link-item,
+            .friend-item,
+            .gate,
+            .keeptime-btn {
+                transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            }
+
+            /* уменьшаем box-shadow у карточек (GPU-нагрузка) */
+            .container {
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+            .link-item:hover {
+                box-shadow: 0 4px 12px rgba(0, 40, 100, 0.25);
+            }
+
+            /* vinyl-disc: убираем spinning repeating-radial на паузе */
+            .vinyl-disc::before {
+                animation: none !important;
+            }
+        }
+
+        /* Очень маленькие экраны (старые телефоны) */
+        @media (max-width: 380px) {
+            .container {
+                padding: 1.5rem 0.9rem 1.2rem;
+                border-radius: 1.5rem;
+            }
+            .studio { font-size: 0.75rem; }
+            .nick { font-size: 0.7rem; }
+            .link-item {
+                padding: 0.55rem 0.7rem;
+                font-size: 0.8rem;
+            }
+            .link-item .icon { width: 34px; height: 34px; }
+            .link-item .icon i { font-size: 0.9rem; }
+            .link-item .label { letter-spacing: 0.3px; }
+
+            /* полностью убираем aurora на очень маленьких экранах */
+            .aurora { display: none; }
+
+            /* и noise */
+            .noise { display: none; }
+
+            /* уменьшаем шрифт заголовков keeptime */
+            .keeptime-title { font-size: 0.75rem; }
+            .keeptime-btn {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.82rem;
+            }
+        }
+
+        /* Ландшафтная ориентация на телефоне — компактная вёрстка */
+        @media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
+            body {
+                padding: 1rem;
+                align-items: flex-start;
+            }
+            .container {
+                max-width: 480px;
+                padding: 1.4rem 1.2rem 1.2rem;
+                margin: 0 auto;
+            }
+            .studio { font-size: 0.9rem; margin-bottom: 0.3rem; }
+            .divider { margin: 0.6rem auto 0.7rem; }
+            .nick { font-size: 0.75rem; }
+            .sub-nick { margin: 0.4rem 0 0.8rem; font-size: 0.7rem; }
+            .links { gap: 0.45rem; margin-bottom: 1rem; }
+            .link-item { padding: 0.5rem 0.8rem; }
+            .keeptime-block { margin-bottom: 1rem; }
+            .keeptime-inner { padding: 1rem 1rem; }
+        }
+
+        /* Поддержка prefers-reduced-motion: убираем все бесконечные анимации */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .aurora span,
+            .container,
+            .keeptime-block::before,
+            .vinyl-disc.spinning::before,
+            .vinyl-disc.spinning,
+            .keeptime-live .dot,
+            .status-badge .dot {
+                animation: none !important;
             }
         }
     </style>
@@ -1880,27 +2066,6 @@
                 </div></div>
             </div>
 
-            <!-- MrDebug — несколько ссылок, раскрывается -->
-            <div class="friend-group">
-                <div class="link-item friend-item" data-toggle="friend">
-                    <span class="icon"><i class="fas fa-user"></i></span>
-                    <span class="label">MrDebug</span>
-                    <i class="fas fa-chevron-right chevron"></i>
-                </div>
-                <div class="friend-sublinks"><div class="sublinks-inner">
-                    <a href="https://mrdebug-ost.shop" target="_blank" class="sub-link">
-                        <span class="sub-icon"><i class="fas fa-globe"></i></span>
-                        <span class="sub-label">Магазин</span>
-                        <i class="fas fa-arrow-right arrow"></i>
-                    </a>
-                    <a href="https://t.me/DebugsRoom" target="_blank" class="sub-link">
-                        <span class="sub-icon"><i class="fab fa-telegram"></i></span>
-                        <span class="sub-label">Telegram</span>
-                        <i class="fas fa-arrow-right arrow"></i>
-                    </a>
-                </div></div>
-            </div>
-
             <!-- Gears_404 — одна ссылка, без стрелки -->
             <a href="https://t.me/Gears_404_sam" target="_blank" class="link-item friend-item">
                 <span class="icon"><i class="fab fa-telegram"></i></span>
@@ -1943,6 +2108,12 @@
                     </a>
                 </div></div>
             </div>
+
+            <!-- Iverna — одна ссылка, без стрелки -->
+            <a href="https://t.me/ivetntgk" target="_blank" class="link-item friend-item">
+                <span class="icon"><i class="fab fa-telegram"></i></span>
+                <span class="label">Iverna</span>
+            </a>
 
         </div>
 
@@ -1990,7 +2161,12 @@
     <script>
         // ================================================================
         // ФОН — ПЛАВНАЯ СМЕНА ОБОЕВ (CROSSFADE)
+        // На мобильных отключаем для производительности
         // ================================================================
+        const isMobile = window.matchMedia('(max-width: 600px)').matches;
+        const isLowEnd = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+        const enableBgRotation = !isMobile && !isLowEnd && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         const images = [
             'images/0000.png',
             'images/0002.png',
@@ -2009,35 +2185,57 @@
 
         let currentIndex = 0;
         let activeLayer = 0;
+        let bgInterval = null;
 
-        // предзагрузка изображений, чтобы при смене не было мигания
-        images.forEach(src => {
-            const img = new Image();
-            img.src = src;
-        });
-
-        // показать первую картинку сразу
+        // показать первую картинку сразу (всегда)
         function showFirst() {
-            bgLayers[0].style.backgroundImage = `url('${images[0]}')`;
-            bgLayers[0].style.opacity = '1';
+            if (bgLayers[0]) {
+                bgLayers[0].style.backgroundImage = `url('${images[0]}')`;
+                bgLayers[0].style.opacity = '1';
+            }
         }
 
         function changeBackground() {
             currentIndex = (currentIndex + 1) % images.length;
 
-            // следующий (скрытый) слой получает новую картинку
             const nextLayer = bgLayers[1 - activeLayer];
-            nextLayer.style.backgroundImage = `url('${images[currentIndex]}')`;
+            if (!nextLayer) return;
 
-            // плавно меняем слои местами
-            nextLayer.style.opacity = '1';
-            bgLayers[activeLayer].style.opacity = '0';
-
-            activeLayer = 1 - activeLayer;
+            // предзагрузим картинку перед показом, чтобы не было мерцания
+            const img = new Image();
+            img.onload = () => {
+                nextLayer.style.backgroundImage = `url('${images[currentIndex]}')`;
+                nextLayer.style.opacity = '1';
+                if (bgLayers[activeLayer]) {
+                    bgLayers[activeLayer].style.opacity = '0';
+                }
+                activeLayer = 1 - activeLayer;
+            };
+            img.src = images[currentIndex];
         }
 
         showFirst();
-        setInterval(changeBackground, 10000);
+
+        // запускаем ротацию только на мощных устройствах
+        if (enableBgRotation) {
+            // ленивая предзагрузка: подгружаем следующие картинки по одной
+            images.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+            bgInterval = setInterval(changeBackground, 10000);
+        }
+
+        // останавливаем ротацию при уходе со страницы (экономия)
+        document.addEventListener('visibilitychange', () => {
+            if (!bgInterval) return;
+            if (document.hidden) {
+                clearInterval(bgInterval);
+                bgInterval = null;
+            } else if (enableBgRotation) {
+                bgInterval = setInterval(changeBackground, 10000);
+            }
+        });
 
         // ================================================================
         // ПЕРЕХОД НА 2 СТРАНИЦУ — ВАРП-ПРЫЖОК
