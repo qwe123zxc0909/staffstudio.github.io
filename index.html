@@ -1620,6 +1620,76 @@
                 width: 34px; height: 34px;
                 font-size: 0.7rem;
             }
+
+            .hack-btn {
+                top: 14px;
+                left: 14px;
+                width: 38px; height: 38px;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* ============================================================ */
+        /* КНОПКА-ВЗЛОМ (слева сверху) */
+        /* ============================================================ */
+        .hack-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            background: rgba(8, 14, 10, 0.85);
+            border: 1px solid rgba(74, 222, 128, 0.25);
+            color: rgba(74, 222, 128, 0.85);
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+        }
+
+        .hack-btn::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 12px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            opacity: 0;
+            animation: hackPulse 2.4s ease-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes hackPulse {
+            0% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.6);
+            }
+        }
+
+        .hack-btn:hover {
+            background: rgba(10, 28, 16, 0.95);
+            border-color: rgba(74, 222, 128, 0.6);
+            color: rgba(140, 255, 180, 1);
+            box-shadow: 0 0 22px rgba(74, 222, 128, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .hack-btn i {
+            text-shadow: 0 0 10px rgba(74, 222, 128, 0.6);
+        }
+
+        .hack-btn:hover i {
+            text-shadow: 0 0 16px rgba(140, 255, 180, 0.9);
         }
 
         /* ============================================================ */
@@ -1785,6 +1855,11 @@
     </style>
 </head>
 <body>
+
+    <!-- КНОПКА-ВЗЛОМ (слева сверху) -->
+    <a href="page3.html" class="hack-btn" title="взлом">
+        <i class="fas fa-terminal"></i>
+    </a>
 
     <!-- ФОНОВЫЕ СЛОИ (плавная смена обоев) -->
     <div class="bg-layer" id="bgLayer1"></div>
